@@ -1,32 +1,40 @@
 package org.juan.ventas.models;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "DOCTOS_VE")
-public class DoctosVe extends PanacheEntity {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class DoctosVe {
    
+    @Id
     @Column(name ="DOCTO_VE_ID")
-    private Long doctoVeId;
+    private Integer doctoVeId;
 
     @Column(name ="TIPO_DOCTO")
-    private String tipoDocto;
+    private char tipoDocto;
 
 
     @Column(name ="SUBTIPO_DOCTO")
-    private String subtipoDocto;
+    private char subtipoDocto;
 
     @Column(name ="SUCURSAL_ID")
-    private Long sucursalId;
+    private Integer sucursalId;
 
     @Column(name ="FOLIO")
-    private String folio;
+    private char folio;
 
     @Column(name ="FECHA")
     private LocalDate fecha;
@@ -38,40 +46,40 @@ public class DoctosVe extends PanacheEntity {
     private String claveCliente;
 
     @Column(name ="CLIENTE_ID")
-    private Long clienteId;
+    private Integer clienteId;
 
     @Column(name ="DIR_CLI_ID")
-    private Long dirCliId;
+    private Integer dirCliId;
 
     @Column(name ="DIR_CONSIG_ID")
-    private Long dirConsigId;
+    private Integer dirConsigId;
 
     @Column(name ="ALMACEN_ID")
-    private Long almacenId;
+    private Integer almacenId;
 
     @Column(name ="LUGAR_EXPEDICION_ID")
-    private Long lugarExpedicionId;
+    private Integer lugarExpedicionId;
 
     @Column(name ="MONEDA_ID")
-    private Long monedaId;
+    private Integer monedaId;
 
     @Column(name ="TIPO_CAMBIO")
-    private Long tipoCambio;
+    private BigDecimal tipoCambio;
 
     @Column(name ="TIPO_DSCTO")
-    private String tipoDescuento;
+    private char tipoDescuento;
 
     @Column(name ="DSCTO_PCTJE")
-    private Long descuentoPorcentaje;
+    private BigDecimal descuentoPorcentaje;
 
     @Column(name ="DSCTO_IMPORTE")
-    private Long descuentoImporte;
+    private BigDecimal descuentoImporte;
 
     @Column(name ="ESTATUS")
-    private String estatus;
+    private char estatus;
 
     @Column(name ="APLICADO")
-    private String aplicado;
+    private char aplicado;
 
     @Column(name ="FECHA_VIGENCIA_ENTREGA")
     private LocalDate fechaVigenciaEntrega;
@@ -92,38 +100,38 @@ public class DoctosVe extends PanacheEntity {
     private String descripcion;
 
     @Column(name ="IMPORTE_NETO")
-    private Long importeNeto;
+    private BigDecimal importeNeto;
 
     @Column(name ="FLETES")
-    private Long fletes;
+    private BigDecimal fletes;
 
     @Column(name ="OTROS_CARGOS")
-    private Long otrosCargos;
+    private BigDecimal otrosCargos;
 
 
     @Column(name ="TOTAL_IMPUESTOS")
-    private Long totalImpuestos;
+    private BigDecimal totalImpuestos;
 
     @Column(name ="TOTAL_RETENCIONES")
-    private Long totalRetenciones;
+    private BigDecimal totalRetenciones;
 
     @Column(name ="TOTAL_ANTICIPOS")
-    private Long totalAnticipos;
+    private BigDecimal totalAnticipos;
 
     @Column(name ="PESO_EMBARQUE")
-    private Long pesoEmbarque;
+    private BigDecimal pesoEmbarque;
 
     @Column(name ="FORMA_EMITIDA")
-    private String formaEmitida;
+    private char formaEmitida;
 
     @Column(name ="CONTABILIZADO")
-    private String contabilizado;
+    private char contabilizado;
 
     @Column(name ="ACREDITAR_CXC")
-    private String acreditarCxc;
+    private char acreditarCxc;
 
     @Column(name ="SISTEMA_ORIGEN")
-    private String sistemaOrigen;
+    private char sistemaOrigen;
 
     @Column(name ="COND_PAGO_ID")
     private Integer condPagoId;
@@ -132,42 +140,86 @@ public class DoctosVe extends PanacheEntity {
     private LocalDate fechaDescuentoPPago;
 
     @Column(name ="PCTJE_DSCTO_PPAG")
-    private Long porcentajeDescuentoPPago;
+    private BigDecimal porcentajeDescuentoPPago;
 
     @Column(name ="VENDEDOR_ID")
-    private Long vendedorId;
+    private Integer vendedorId;
 
     @Column(name ="PCTJE_COMIS")
-    private Long porcentajeComision;
+    private BigDecimal porcentajeComision;
 
     @Column(name ="VIA_EMBARQUE_ID")
-    private Long viaEmbarqueId;
+    private Integer viaEmbarqueId;
 
     @Column(name ="IMPORTE_COBRO")
-    private Long importeCobro;
+    private BigDecimal importeCobro;
 
     @Column(name ="DESCRIPCION_COBRO")
     private String descripcionCobro;
 
     @Column(name ="IMPUESTO_SUSTITUIDO_ID")
-    private Long impuestoSustituidoId;
+    private Integer impuestoSustituidoId;
 
     @Column(name ="IMPUESTO_SUSTITUTO_ID")
-    private Long impuestoSustitutoId;
+    private Integer impuestoSustitutoId;
 
     @Column(name ="USUARIO_CREADOR")
     private String usuarioCreador;
 
     @Column(name ="ES_CFD")
-    private String esCfd;
+    private char esCfd;
 
     @Column(name ="MODALIDAD_FACTURACION")
     private String modalidadFacturacion;
 
     @Column(name ="ENVIADO")
-    private String enviado;
+    private char enviado;
 
     @Column(name ="FECHA_HORA_ENVIO")
     private LocalDateTime fechaHoraEnvio;
 
+    @Column(name ="EMAIL_ENVIO")
+    private String emailEnvio;
+
+    @Column(name ="CFD_ENVIO_ESPECIAL")
+    private char cfdEnvioEspecial;
+
+    @Column(name = "USO_CFDI")
+    private Character usoCfdi;
+
+    @Column(name ="METODO_PAGO_SAT")
+    private Character metodoPagoSat;
+
+    @Column(name ="CFDI_CERTIFICADO")
+    private char cfdiCertificado;
+
+    @Column(name ="CFDI_FACT_DEVUELTA_ID")
+    private Integer cfdiFactDevueltaId;
+
+    @Column(name ="FECHA_HORA_CREACION")
+    private LocalDateTime fechaHoraCreacion;
+
+    @Column(name ="USUARIO_ULT_MODIF")
+    private String usuarioUltModif;
+
+    @Column(name ="USUARIO_AUT_CREACION")
+    private String usuarioAutCreacion;
+
+    @Column(name ="FECHA_HORA_ULT_MODIF")
+    private LocalDateTime fechaHoraUltModif;
+
+    @Column(name ="CARGAR_SUN")
+    private char cargarSun;
+
+    @Column(name ="USUARIO_AUT_MODIF")
+    private String usuarioAutModif;
+
+    @Column(name ="USUARIO_CANCELACION")
+    private String usuarioCancelacion;
+
+    @Column(name ="FECHA_HORA_CANCELACION")
+    private LocalDateTime fechaHoraCancelacion;
+
+    @Column(name ="USUARIO_AUT_CANCELACION")
+    private String usuarioAutCancelacion;
 }

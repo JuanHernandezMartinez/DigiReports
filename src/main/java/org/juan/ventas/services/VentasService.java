@@ -12,5 +12,4 @@ public interface VentasService {
 
     List<?> getSoldsByDates(LocalDate inicio, LocalDate fin) throws Exception;
 
-    
 }

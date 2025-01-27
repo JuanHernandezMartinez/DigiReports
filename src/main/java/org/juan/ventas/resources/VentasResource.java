@@ -3,10 +3,8 @@ package org.juan.ventas.resources;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jboss.logging.annotations.Param;
 import org.juan.ventas.services.VentasService;
-
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

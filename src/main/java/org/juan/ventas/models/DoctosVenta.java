@@ -8,218 +8,217 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "DOCTOS_VE")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class DoctosVe {
+public class DoctosVenta {
    
     @Id
     @Column(name ="DOCTO_VE_ID")
-    private Integer doctoVeId;
+    public Integer doctoVeId;
 
     @Column(name ="TIPO_DOCTO")
-    private char tipoDocto;
+    public char tipoDocto;
 
 
     @Column(name ="SUBTIPO_DOCTO")
-    private char subtipoDocto;
+    public char subtipoDocto;
 
     @Column(name ="SUCURSAL_ID")
-    private Integer sucursalId;
+    public Integer sucursalId;
 
     @Column(name ="FOLIO")
-    private char folio;
+    public char folio;
 
     @Column(name ="FECHA")
-    private LocalDate fecha;
+    public LocalDate fecha;
 
     @Column(name ="HORA")
-    private LocalTime hora;
+    public LocalTime hora;
 
     @Column(name ="CLAVE_CLIENTE")
-    private String claveCliente;
+    public String claveCliente;
 
     @Column(name ="CLIENTE_ID")
-    private Integer clienteId;
+    public Integer clienteId;
 
     @Column(name ="DIR_CLI_ID")
-    private Integer dirCliId;
+    public Integer dirCliId;
 
     @Column(name ="DIR_CONSIG_ID")
-    private Integer dirConsigId;
+    public Integer dirConsigId;
 
     @Column(name ="ALMACEN_ID")
-    private Integer almacenId;
+    public Integer almacenId;
 
     @Column(name ="LUGAR_EXPEDICION_ID")
-    private Integer lugarExpedicionId;
+    public Integer lugarExpedicionId;
 
     @Column(name ="MONEDA_ID")
-    private Integer monedaId;
+    public Integer monedaId;
 
     @Column(name ="TIPO_CAMBIO")
-    private BigDecimal tipoCambio;
+    public BigDecimal tipoCambio;
 
     @Column(name ="TIPO_DSCTO")
-    private char tipoDescuento;
+    public char tipoDescuento;
 
     @Column(name ="DSCTO_PCTJE")
-    private BigDecimal descuentoPorcentaje;
+    public BigDecimal descuentoPorcentaje;
 
     @Column(name ="DSCTO_IMPORTE")
-    private BigDecimal descuentoImporte;
+    public BigDecimal descuentoImporte;
 
     @Column(name ="ESTATUS")
-    private char estatus;
+    public char estatus;
 
     @Column(name ="APLICADO")
-    private char aplicado;
+    public char aplicado;
 
     @Column(name ="FECHA_VIGENCIA_ENTREGA")
-    private LocalDate fechaVigenciaEntrega;
+    public LocalDate fechaVigenciaEntrega;
 
     @Column(name ="ORDEN_COMPRA")
-    private String ordenCompra;
+    public String ordenCompra;
 
     @Column(name ="FECHA_ORDEN_COMPRA")
-    private LocalDate fechaOrdenCompra;
+    public LocalDate fechaOrdenCompra;
 
     @Column(name ="FOLIO_RECIBO_MERCANCIA")
-    private String folioReciboMercancia;
+    public String folioReciboMercancia;
 
     @Column(name ="FECHA_RECIBO_MERCANCIA")
-    private LocalDate fechaReciboMercancia;
+    public LocalDate fechaReciboMercancia;
 
     @Column(name ="DESCRIPCION")
-    private String descripcion;
+    public String descripcion;
 
     @Column(name ="IMPORTE_NETO")
-    private BigDecimal importeNeto;
+    public BigDecimal importeNeto;
 
     @Column(name ="FLETES")
-    private BigDecimal fletes;
+    public BigDecimal fletes;
 
     @Column(name ="OTROS_CARGOS")
-    private BigDecimal otrosCargos;
+    public BigDecimal otrosCargos;
 
 
     @Column(name ="TOTAL_IMPUESTOS")
-    private BigDecimal totalImpuestos;
+    public BigDecimal totalImpuestos;
 
     @Column(name ="TOTAL_RETENCIONES")
-    private BigDecimal totalRetenciones;
+    public BigDecimal totalRetenciones;
 
     @Column(name ="TOTAL_ANTICIPOS")
-    private BigDecimal totalAnticipos;
+    public BigDecimal totalAnticipos;
 
     @Column(name ="PESO_EMBARQUE")
-    private BigDecimal pesoEmbarque;
+    public BigDecimal pesoEmbarque;
 
     @Column(name ="FORMA_EMITIDA")
-    private char formaEmitida;
+    public char formaEmitida;
 
     @Column(name ="CONTABILIZADO")
-    private char contabilizado;
+    public char contabilizado;
 
     @Column(name ="ACREDITAR_CXC")
-    private char acreditarCxc;
+    public char acreditarCxc;
 
     @Column(name ="SISTEMA_ORIGEN")
-    private char sistemaOrigen;
+    public char sistemaOrigen;
 
     @Column(name ="COND_PAGO_ID")
-    private Integer condPagoId;
+    public Integer condPagoId;
 
     @Column(name ="FECHA_DSCTO_PPAG")
-    private LocalDate fechaDescuentoPPago;
+    public LocalDate fechaDescuentoPPago;
 
     @Column(name ="PCTJE_DSCTO_PPAG")
-    private BigDecimal porcentajeDescuentoPPago;
+    public BigDecimal porcentajeDescuentoPPago;
 
     @Column(name ="VENDEDOR_ID")
-    private Integer vendedorId;
+    public Integer vendedorId;
 
     @Column(name ="PCTJE_COMIS")
-    private BigDecimal porcentajeComision;
+    public BigDecimal porcentajeComision;
 
     @Column(name ="VIA_EMBARQUE_ID")
-    private Integer viaEmbarqueId;
+    public Integer viaEmbarqueId;
 
     @Column(name ="IMPORTE_COBRO")
-    private BigDecimal importeCobro;
+    public BigDecimal importeCobro;
 
     @Column(name ="DESCRIPCION_COBRO")
-    private String descripcionCobro;
+    public String descripcionCobro;
 
     @Column(name ="IMPUESTO_SUSTITUIDO_ID")
-    private Integer impuestoSustituidoId;
+    public Integer impuestoSustituidoId;
 
     @Column(name ="IMPUESTO_SUSTITUTO_ID")
-    private Integer impuestoSustitutoId;
+    public Integer impuestoSustitutoId;
 
     @Column(name ="USUARIO_CREADOR")
-    private String usuarioCreador;
+    public String usuarioCreador;
 
     @Column(name ="ES_CFD")
-    private char esCfd;
+    public char esCfd;
 
     @Column(name ="MODALIDAD_FACTURACION")
-    private String modalidadFacturacion;
+    public String modalidadFacturacion;
 
     @Column(name ="ENVIADO")
-    private char enviado;
+    public char enviado;
 
     @Column(name ="FECHA_HORA_ENVIO")
-    private LocalDateTime fechaHoraEnvio;
+    public LocalDateTime fechaHoraEnvio;
 
     @Column(name ="EMAIL_ENVIO")
-    private String emailEnvio;
+    public String emailEnvio;
 
     @Column(name ="CFD_ENVIO_ESPECIAL")
-    private char cfdEnvioEspecial;
+    public char cfdEnvioEspecial;
 
     @Column(name = "USO_CFDI")
-    private Character usoCfdi;
+    public Character usoCfdi;
 
     @Column(name ="METODO_PAGO_SAT")
-    private Character metodoPagoSat;
+    public Character metodoPagoSat;
 
     @Column(name ="CFDI_CERTIFICADO")
-    private char cfdiCertificado;
+    public char cfdiCertificado;
 
     @Column(name ="CFDI_FACT_DEVUELTA_ID")
-    private Integer cfdiFactDevueltaId;
+    public Integer cfdiFactDevueltaId;
 
     @Column(name ="FECHA_HORA_CREACION")
-    private LocalDateTime fechaHoraCreacion;
+    public LocalDateTime fechaHoraCreacion;
 
     @Column(name ="USUARIO_ULT_MODIF")
-    private String usuarioUltModif;
+    public String usuarioUltModif;
 
     @Column(name ="USUARIO_AUT_CREACION")
-    private String usuarioAutCreacion;
+    public String usuarioAutCreacion;
 
     @Column(name ="FECHA_HORA_ULT_MODIF")
-    private LocalDateTime fechaHoraUltModif;
+    public LocalDateTime fechaHoraUltModif;
 
     @Column(name ="CARGAR_SUN")
-    private char cargarSun;
+    public char cargarSun;
 
     @Column(name ="USUARIO_AUT_MODIF")
-    private String usuarioAutModif;
+    public String usuarioAutModif;
 
     @Column(name ="USUARIO_CANCELACION")
-    private String usuarioCancelacion;
+    public String usuarioCancelacion;
 
     @Column(name ="FECHA_HORA_CANCELACION")
-    private LocalDateTime fechaHoraCancelacion;
+    public LocalDateTime fechaHoraCancelacion;
 
     @Column(name ="USUARIO_AUT_CANCELACION")
-    private String usuarioAutCancelacion;
+    public String usuarioAutCancelacion;
+
+    public DoctosVenta() {
+    }
+
+
 }

@@ -18,9 +18,7 @@ public class VentasServiceImpl implements VentasService {
     public List<?> getVentas() throws Exception {
         System.out.println("buscando doctos ve");
         try {
-            var doctos = doctosVentasRepository.finDoctosVentas();
-            System.out.println("docto: " + doctos.get(0));
-            return doctos;
+            return doctosVentasRepository.finDoctosVentas();
         } catch (Exception e) {
             System.out.println("Error al buscar doctos: " + e.getMessage());
             throw new Exception("Ha ocurrido un error al buscar los documentos venta");
@@ -31,10 +29,7 @@ public class VentasServiceImpl implements VentasService {
     @Override
     public List<?> getSoldsByDates(LocalDate inicio, LocalDate fin) throws Exception {
         try {
-            var fechaInicio = LocalDateTime.of(inicio.getYear(), inicio.getMonth(), inicio.getDayOfMonth(), 0, 0, 0);
-            var fechaFin = LocalDateTime.of(fin.getYear(), fin.getMonth(), fin.getDayOfMonth(), 23, 59, 59);
-
-            return doctosVentasRepository.finDoctosVesByDates(fechaInicio, fechaFin);
+            return doctosVentasRepository.finDoctosVesByDates(inicio, fin);
         } catch (Exception e) {
            System.out.println("Error al buscar documentos ventas por fechas: " + e.getMessage());
            throw new Exception(e.getMessage());

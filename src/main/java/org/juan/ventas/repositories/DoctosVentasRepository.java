@@ -1,5 +1,6 @@
 package org.juan.ventas.repositories;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.juan.ventas.models.DoctosVenta;
@@ -13,8 +14,8 @@ public class DoctosVentasRepository implements PanacheRepository<DoctosVenta>  {
         return listAll();
     }
 
-    public List<DoctosVenta> finDoctosVesByDates(LocalDateTime inicio, LocalDateTime fin){
-        return list("fechaHoraCreacion BETWEEN ?1 AND ?2", inicio, fin);
+    public List<DoctosVenta> finDoctosVesByDates(LocalDate inicio, LocalDate fin){
+        return list("fecha BETWEEN ?1 AND ?2", inicio, fin);
     }
 
     //consulta para obtener unidades por ARTICULO_ID
@@ -25,5 +26,8 @@ public class DoctosVentasRepository implements PanacheRepository<DoctosVenta>  {
 
     //se puede consultar el docto ve por fechas, una vez encontrado los doctos ve, ahora hay que encontrar los detalles doctos ve, y con esto encontramos los articulos, unidades y totales
     //al sumar las unidades si cuadran con los resultados unidades de la tabla, sin embargo no cuandran los resultados de los totales de la tabla, no se si se debe aplicar IVA O ALGO EXTRA?
+
+    //para que cuadrer el TOTAL DE VENTAS hay que sumar los totales netos y ademas el IMPORTE_IMPUESTO_BRUTO por cada DOCTO_DETALLE_VE por cada articulo
+    //SELECT * FROM IMPUESTOS_DOCTOS_VE_DET idvd WHERE  idvd.DOCTO_VE_DET_ID  in (3147585, 3147618, 3147643);
     
 }

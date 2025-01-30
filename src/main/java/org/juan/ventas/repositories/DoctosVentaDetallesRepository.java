@@ -10,7 +10,7 @@ import java.util.List;
 @ApplicationScoped
 public class DoctosVentaDetallesRepository implements PanacheRepository<DoctosVentaDetalles> {
 
-    public List<DoctosVentaDetalles> fondDetallesByDoctosVeIds(List<Integer> doctosVeIds){
+    public List<DoctosVentaDetalles> findDetallesByDoctosVeIds(List<Integer> doctosVeIds){
         return list("DOCTO_VE_ID in ?1", doctosVeIds);
     }
 

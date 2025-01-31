@@ -10,6 +10,6 @@ public interface VentasService {
 
     List<?> getVentas() throws Exception;
 
-    List<?> getSoldsByDates(LocalDate inicio, LocalDate fin) throws Exception;
+    List<?> obtenerVentasPorFechas(LocalDate fechaInicio, LocalDate fechaFin) throws Exception;
 
 }

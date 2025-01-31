@@ -17,26 +17,26 @@ public class VentasResource {
     @Inject
     private VentasService ventasService;
 
-    @GET
-    @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<?> getSoldsHandler(){
-        try {
-            return ventasService.getVentas();
-        } catch (Exception e) {
-            var error = new ArrayList<>();
-            error.add(e.getMessage());
-            return error;
-        }
-    }
+//    @GET
+//    @Path("/")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<?> getSoldsHandler(){
+//        try {
+//            return ventasService.getVentas();
+//        } catch (Exception e) {
+//            var error = new ArrayList<>();
+//            error.add(e.getMessage());
+//            return error;
+//        }
+//    }
 
     @GET
     @Path("/{inicio}/{fin}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<?> getSoldsByDatesHandler(@Param() LocalDate inicio, @Param() LocalDate fin){
+    public List<?> obtenerVentasPorFechas(@Param() LocalDate inicio, @Param() LocalDate fin){
         try {
             System.out.println("Fecha inicio: " + inicio + " Fecha fin: " + fin);
-            return ventasService.getSoldsByDates(inicio, fin);
+            return ventasService.obtenerVentasPorFechas(inicio, fin);
         } catch (Exception e) {
             var error = new ArrayList<>();
             error.add(e.getMessage());

@@ -11,10 +11,10 @@ import java.util.List;
 public class DoctosVentaDetallesRepository implements PanacheRepository<DoctosVentaDetalles> {
 
     public List<DoctosVentaDetalles> findDetallesByDoctosVeIds(List<Integer> doctosVeIds){
-        return list("DOCTO_VE_ID in ?1", doctosVeIds);
+        return list("doctoVeId in ?1", doctosVeIds);
     }
 
     public List<DoctosVentaDetalles> fondDetallesByDoctosVeIdsAndArticulo(List<Integer> doctosVeIds, Integer articuloId){
-        return list("DOCTO_VE_ID in ?1 AND ARTICULO_ID = ?2", doctosVeIds, articuloId);
+        return list("doctoVeId in ?1 AND ARTICULO_ID = ?2", doctosVeIds, articuloId);
     }
 }

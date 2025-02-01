@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.juan.ventas.models.Articulo;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

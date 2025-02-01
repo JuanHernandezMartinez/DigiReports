@@ -1,17 +1,20 @@
 package org.juan.ventas.services.implementations;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
-import org.juan.ventas.dtos.VentaDto;
+import org.juan.ventas.dtos.ArticuloTotal;
 import org.juan.ventas.models.Articulo;
 import org.juan.ventas.models.DoctosVentaDetalles;
+import org.juan.ventas.models.Impuesto;
 import org.juan.ventas.repositories.ArticulosRepository;
 import org.juan.ventas.repositories.DoctosVentaDetallesRepository;
 import org.juan.ventas.repositories.DoctosVentasRepository;
+import org.juan.ventas.repositories.ImpuestosDetallesRepository;
 import org.juan.ventas.services.VentasService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -28,6 +31,9 @@ public class VentasServiceImpl implements VentasService {
     @Inject
     private ArticulosRepository articulosRepository;
 
+    @Inject
+    private ImpuestosDetallesRepository impuestosDetallesRepository;
+
     @Override
     public List<?> getVentas() throws Exception {
         System.out.println("buscando doctos ve");
@@ -40,30 +46,17 @@ public class VentasServiceImpl implements VentasService {
     }
 
     @Override
-    public List<?> obtenerVentasPorFechas(LocalDate inicio, LocalDate fin) throws Exception {
+    public List<ArticuloTotal> obtenerVentasPorFechas(LocalDate inicio, LocalDate fin) throws Exception {
 
-        List<Integer> doctosVentaIds = doctosVentasRepository.findDoctosVesByDates(inicio, fin);
-        System.out.println("Cantidad de ids encontrados: " + doctosVentaIds.toString());
-
-        List<DoctosVentaDetalles> detalles = detallesRepository.findDetallesByDoctosVeIds(doctosVentaIds);
-        System.out.println("Cantidad de detalles encontrados: " + detalles.size());
-
-        List<Integer> articlesIds = new ArrayList<>();
-        detalles.forEach((d) -> {
-            articlesIds.add(d.articuloId);
-        });
-
-        List<Articulo> articulos = articulosRepository.findArticlesByIds(articlesIds);
-
-        var dto = VentaDto.builder().build();
-        Map<Integer, VentaDto> detallesArticulos = new HashMap<>();
-
-        for(DoctosVentaDetalles docto: detalles){
-
+        try {
+            List<ArticuloTotal> articulosTotal = detallesRepository.findTotalesArticulos(inicio, fin);
+            System.out.println("Cantidad de ids encontrados: " + articulosTotal);
+        return articulosTotal;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            throw new Exception("Errorazo");
         }
 
-        return articulos;
     }
-
 
 }

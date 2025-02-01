@@ -1,4 +1,4 @@
-package org.juan.ventas.resources;
+package org.juan.ventas.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,19 +16,6 @@ public class VentasResource {
 
     @Inject
     private VentasService ventasService;
-
-//    @GET
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<?> getSoldsHandler(){
-//        try {
-//            return ventasService.getVentas();
-//        } catch (Exception e) {
-//            var error = new ArrayList<>();
-//            error.add(e.getMessage());
-//            return error;
-//        }
-//    }
 
     @GET
     @Path("/{inicio}/{fin}")

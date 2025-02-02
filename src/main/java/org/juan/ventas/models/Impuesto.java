@@ -1,6 +1,7 @@
 package org.juan.ventas.models;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,27 +14,44 @@ public class Impuesto {
 
     @Id
     @Column(name = "DOCTO_VE_DET_ID")
-    public Integer id;
+    private Integer id;
 
     @Column(name = "IMPORTE_IMPUESTO_BRUTO")
-    public BigDecimal importeImpuesto;
-    
+    private BigDecimal importeImpuesto;
 
     public Impuesto() {
     }
-
-    
 
     public Impuesto(Integer id, BigDecimal importeImpuesto) {
         this.id = id;
         this.importeImpuesto = importeImpuesto;
     }
 
-    @Override
-    public String toString() {
-        return "Impuesto [id=" + id + ", importeImpuesto=" + importeImpuesto + "]";
+    public Integer getId() {
+        return id;
     }
 
-    
-    
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public BigDecimal getImporteImpuesto() {
+        return importeImpuesto;
+    }
+
+    public void setImporteImpuesto(BigDecimal importeImpuesto) {
+        this.importeImpuesto = importeImpuesto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Impuesto impuesto = (Impuesto) o;
+        return Objects.equals(id, impuesto.id) && Objects.equals(importeImpuesto, impuesto.importeImpuesto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, importeImpuesto);
+    }
 }

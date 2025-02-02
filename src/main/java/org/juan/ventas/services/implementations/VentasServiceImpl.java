@@ -47,16 +47,20 @@ public class VentasServiceImpl implements VentasService {
 
     @Override
     public List<ArticuloTotal> obtenerVentasPorFechas(LocalDate inicio, LocalDate fin) throws Exception {
-
         try {
+            var detalles = detallesRepository.findDetallesIdsByDates(inicio, fin);
+
+            System.out.println("Cantidad de detalles" + detalles.size() );
+
             List<ArticuloTotal> articulosTotal = detallesRepository.findTotalesArticulos(inicio, fin);
-            System.out.println("Cantidad de ids encontrados: " + articulosTotal);
+
+//            List<Impuesto> impuestos = impuestosDetallesRepository.findImpuestosByDetallesIds(detalles);
+
         return articulosTotal;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             throw new Exception("Errorazo");
         }
-
     }
 
 }

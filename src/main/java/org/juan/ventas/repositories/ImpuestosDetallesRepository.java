@@ -8,7 +8,7 @@ import org.juan.ventas.models.Impuesto;
 @ApplicationScoped
 public class ImpuestosDetallesRepository implements PanacheRepository<Impuesto> {
 
-    public List<Impuesto> buscarImpuestosPorDetallesIds(List<Integer> detallesIds){
+    public List<Impuesto> findImpuestosByDetallesIds(List<Integer> detallesIds){
         return list("id in ?1", detallesIds);
     }
 }

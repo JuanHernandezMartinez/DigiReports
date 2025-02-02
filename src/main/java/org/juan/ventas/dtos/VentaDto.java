@@ -8,10 +8,6 @@ import org.juan.ventas.models.Articulo;
 
 import java.math.BigDecimal;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class VentaDto  {
 
     public Articulo articulo;

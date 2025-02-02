@@ -12,7 +12,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/ventas")
-public class VentasResource {
+public class VentasController {
 
     @Inject
     private VentasService ventasService;

@@ -6,7 +6,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.juan.ventas.dtos.ArticuloTotal;
 import org.juan.ventas.models.DoctosVentaDetalles;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -20,8 +22,16 @@ public class DoctosVentaDetallesRepository implements PanacheRepository<DoctosVe
         return list("doctoVeId in ?1 AND ARTICULO_ID = ?2", doctosVeIds, articuloId);
     }
 
-    public List<ArticuloTotal> findTotalesArticulos(LocalDate inicio, LocalDate fin) {
+    public  List<Integer> findDetallesIdsByDates(LocalDate inicio, LocalDate fin){
         return getEntityManager()
+                .createQuery("SELECT dvd.doctoVeDetId FROM DoctosVentaDetalles dvd JOIN DoctosVenta dv ON dvd.doctoVeId = dv.doctoVeId WHERE dv.fecha BETWEEN :inicio AND :fin")
+                .setParameter("inicio", inicio)
+                .setParameter("fin", fin)
+                .getResultList();
+    }
+
+    public List<ArticuloTotal> findTotalesArticulos(LocalDate inicio, LocalDate fin) {
+        List<Object[]> result = getEntityManager()
             .createQuery("""
                 SELECT (
                     CASE
@@ -47,43 +57,17 @@ public class DoctosVentaDetallesRepository implements PanacheRepository<DoctosVe
             .setParameter("inicio", inicio)
             .setParameter("fin", fin)
             .getResultList();
+
+        List<ArticuloTotal> resultParsed = new ArrayList<>();
+        for (Object[] row : result) {
+            ArticuloTotal articuloTotal = new ArticuloTotal();
+            articuloTotal.setArticulo((String) row[0]);
+            articuloTotal.setArticuloId((int) row[1]);
+            articuloTotal.setTotalneto((BigDecimal) row[2]);
+            resultParsed.add(articuloTotal);
+        }
+
+        return resultParsed;
     }
 
-    // public List<ArticuloTotal> findTotalesArticulos2(LocalDate inicio, LocalDate fin){
-    //     Query query = entityManager.createNativeQuery("SELECT\n" + //
-    //                     "    CASE\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%DIESEL%' THEN A.NOMBRE\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%MAGNA%' THEN A.NOMBRE\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%PEMEX PREMIUM%' THEN A.NOMBRE\n" + //
-    //                     "        ELSE 'ACEITES Y LUBRICANTES'\n" + //
-    //                     "    END AS articulo,\n" + //
-    //                     "    CASE\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%DIESEL%' THEN A.ARTICULO_ID\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%MAGNA%' THEN A.ARTICULO_ID\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%PEMEX PREMIUM%' THEN A.ARTICULO_ID\n" + //
-    //                     "        ELSE 0\n" + //
-    //                     "    END AS articulo_id,\n" + //
-    //                     "    SUM(DVD.PRECIO_TOTAL_NETO) AS totalneto\n" + //
-    //                     "FROM DOCTOS_VE_DET DVD\n" + //
-    //                     "JOIN DOCTOS_VE DV ON DVD.DOCTO_VE_ID = DV.DOCTO_VE_ID\n" + //
-    //                     "JOIN ARTICULOS A ON DVD.ARTICULO_ID = A.ARTICULO_ID\n" + //
-    //                     "WHERE DV.FECHA BETWEEN ? AND ?\n" + //
-    //                     "GROUP BY \n" + //
-    //                     "    CASE\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%DIESEL%' THEN A.NOMBRE\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%MAGNA%' THEN A.NOMBRE\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%PEMEX PREMIUM%' THEN A.NOMBRE\n" + //
-    //                     "        ELSE 'ACEITES Y LUBRICANTES'\n" + //
-    //                     "    END,\n" + //
-    //                     "    CASE\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%DIESEL%' THEN A.ARTICULO_ID\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%MAGNA%' THEN A.ARTICULO_ID\n" + //
-    //                     "        WHEN A.NOMBRE LIKE '%PEMEX PREMIUM%' THEN A.ARTICULO_ID\n" + //
-    //                     "        ELSE 0\n" + //
-    //                     "    END");
-    //                     query.setParameter(1, inicio);
-    //                     query.setParameter(2, fin);
-
-    //     return query.getResultList();
-    // }
 }

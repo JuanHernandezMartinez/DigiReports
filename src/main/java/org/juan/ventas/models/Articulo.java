@@ -1,10 +1,8 @@
 package org.juan.ventas.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -13,16 +11,24 @@ public class Articulo {
 
     @Id
     @Column(name = "ARTICULO_ID")
-    public Integer id;
+    private Integer id;
 
     @Column(name = "NOMBRE")
-    public String nombre;
+    private String nombre;
+
+    @Transient
+    private BigDecimal unidades = BigDecimal.ZERO;
+
+    @Transient
+    private BigDecimal total = BigDecimal.ZERO;
 
     public  Articulo(){}
 
-    public Articulo(Integer id, String nombre){
+    public Articulo(Integer id, String nombre, BigDecimal unidades, BigDecimal total) {
         this.id = id;
         this.nombre = nombre;
+        this.unidades = unidades;
+        this.total = total;
     }
 
     public Integer getId() {
@@ -41,11 +47,29 @@ public class Articulo {
         this.nombre = nombre;
     }
 
+    public BigDecimal getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(BigDecimal unidades) {
+        this.unidades = unidades;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
     @Override
     public String toString() {
         return "Articulo{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
+                ", unidades=" + unidades +
+                ", total=" + total +
                 '}';
     }
 
@@ -53,11 +77,11 @@ public class Articulo {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Articulo articulo = (Articulo) o;
-        return Objects.equals(id, articulo.id) && Objects.equals(nombre, articulo.nombre);
+        return Objects.equals(id, articulo.id) && Objects.equals(nombre, articulo.nombre) && Objects.equals(unidades, articulo.unidades) && Objects.equals(total, articulo.total);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre);
+        return Objects.hash(id, nombre, unidades, total);
     }
 }

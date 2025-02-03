@@ -1,11 +1,7 @@
 package org.juan.ventas.repositories;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-
-import org.juan.ventas.dtos.ArticuloTotal;
 import org.juan.ventas.models.DoctosVenta;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;

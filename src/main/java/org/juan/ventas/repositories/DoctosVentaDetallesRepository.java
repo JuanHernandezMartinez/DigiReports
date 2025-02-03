@@ -14,7 +14,7 @@ import java.util.List;
 @ApplicationScoped
 public class DoctosVentaDetallesRepository implements PanacheRepository<DoctosVentaDetalles> {
 
-    public List<DoctosVentaDetalles> findDetallesByDoctosVeIds(List<Integer> doctosVeIds){
+    public List<DoctosVentaDetalles> findDetallesByVentas(List<Integer> doctosVeIds){
         return list("doctoVeId in ?1", doctosVeIds);
     }
 
@@ -23,8 +23,7 @@ public class DoctosVentaDetallesRepository implements PanacheRepository<DoctosVe
     }
 
     public  List<Integer> findDetallesIdsByDates(LocalDate inicio, LocalDate fin){
-        return getEntityManager()
-                .createQuery("SELECT dvd.doctoVeDetId FROM DoctosVentaDetalles dvd JOIN DoctosVenta dv ON dvd.doctoVeId = dv.doctoVeId WHERE dv.fecha BETWEEN :inicio AND :fin")
+        return getEntityManager().createQuery("SELECT dvd.doctoVeDetId FROM DoctosVentaDetalles dvd JOIN DoctosVenta dv ON dvd.doctoVeId = dv.doctoVeId WHERE dv.fecha BETWEEN :inicio AND :fin")
                 .setParameter("inicio", inicio)
                 .setParameter("fin", fin)
                 .getResultList();

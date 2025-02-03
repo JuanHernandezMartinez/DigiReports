@@ -1,29 +1,22 @@
 package org.juan.ventas.models;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "IMPUESTOS_DOCTOS_VE_DET")
 public class Impuesto {
 
-    @Id
-    @Column(name = "DOCTO_VE_DET_ID")
     private Integer id;
 
-    @Column(name = "IMPORTE_IMPUESTO_BRUTO")
+    private Integer detalleId;
+
     private BigDecimal importeImpuesto;
 
     public Impuesto() {
     }
 
-    public Impuesto(Integer id, BigDecimal importeImpuesto) {
+    public Impuesto(Integer id, Integer detalleId, BigDecimal importeImpuesto) {
         this.id = id;
+        this.detalleId = detalleId;
         this.importeImpuesto = importeImpuesto;
     }
 
@@ -35,6 +28,14 @@ public class Impuesto {
         this.id = id;
     }
 
+    public Integer getDetalleId() {
+        return detalleId;
+    }
+
+    public void setDetalleId(Integer detalleId) {
+        this.detalleId = detalleId;
+    }
+
     public BigDecimal getImporteImpuesto() {
         return importeImpuesto;
     }
@@ -43,15 +44,49 @@ public class Impuesto {
         this.importeImpuesto = importeImpuesto;
     }
 
+    
+
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Impuesto impuesto = (Impuesto) o;
-        return Objects.equals(id, impuesto.id) && Objects.equals(importeImpuesto, impuesto.importeImpuesto);
+    public String toString() {
+        return "Impuesto [id=" + id + ", detalleId=" + detalleId + ", importeImpuesto=" + importeImpuesto + "]";
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, importeImpuesto);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((detalleId == null) ? 0 : detalleId.hashCode());
+        result = prime * result + ((importeImpuesto == null) ? 0 : importeImpuesto.hashCode());
+        return result;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Impuesto other = (Impuesto) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (detalleId == null) {
+            if (other.detalleId != null)
+                return false;
+        } else if (!detalleId.equals(other.detalleId))
+            return false;
+        if (importeImpuesto == null) {
+            if (other.importeImpuesto != null)
+                return false;
+        } else if (!importeImpuesto.equals(other.importeImpuesto))
+            return false;
+        return true;
+    }
+
+    
 }

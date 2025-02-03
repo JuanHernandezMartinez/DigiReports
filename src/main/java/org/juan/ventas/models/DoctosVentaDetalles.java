@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 
 import javax.lang.model.element.Name;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "DOCTOS_VE_DET")
@@ -27,11 +28,8 @@ public class DoctosVentaDetalles {
     @Column(name = "UNIDADES")
     public BigDecimal unidades;
 
-    @Column(name = "PRECIO_UNITARIO")
-    public BigDecimal precioUnitario;
-
-    @Column(name = "PCTJE_DSCTO")
-    public BigDecimal pctjeDscto;
+    @Column(name = "PRECIO_TOTAL_NETO")
+    public BigDecimal precioTotalNeto;
 
 //    @Column(name = "")
 //    public BigDecimal dsctoArt;
@@ -45,10 +43,26 @@ public class DoctosVentaDetalles {
 //    @Column(name = "")
 //    public BigDecimal pctjeDsctoVol;
 
-    @Column(name = "PRECIO_TOTAL_NETO")
-    public BigDecimal precioTotalNeto;
+    @Override
+    public String toString() {
+        return "DoctosVentaDetalles{" +
+                "doctoVeDetId=" + doctoVeDetId +
+                ", doctoVeId=" + doctoVeId +
+                ", articuloId=" + articuloId +
+                ", unidades=" + unidades +
+                ", precioTotalNeto=" + precioTotalNeto +
+                '}';
+    }
 
-    @Transient
-    public BigDecimal importeImpuesto;
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        DoctosVentaDetalles detalles = (DoctosVentaDetalles) o;
+        return Objects.equals(doctoVeDetId, detalles.doctoVeDetId) && Objects.equals(doctoVeId, detalles.doctoVeId) && Objects.equals(articuloId, detalles.articuloId) && Objects.equals(unidades, detalles.unidades) && Objects.equals(precioTotalNeto, detalles.precioTotalNeto);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(doctoVeDetId, doctoVeId, articuloId, unidades, precioTotalNeto);
+    }
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.jboss.logging.annotations.Param;
 import org.juan.ventas.services.VentasService;
+
+import io.quarkus.logging.Log;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -22,7 +24,7 @@ public class VentasController {
     @Produces(MediaType.APPLICATION_JSON)
     public List<?> obtenerVentasPorFechas(@Param() LocalDate inicio, @Param() LocalDate fin){
         try {
-            System.out.println("Fecha inicio: " + inicio + " Fecha fin: " + fin);
+            Log.info("Buscando ventas en fecha inicio: " + inicio + ", fecha fin: " + fin);
             return ventasService.obtenerVentasPorFechas(inicio, fin);
         } catch (Exception e) {
             var error = new ArrayList<>();

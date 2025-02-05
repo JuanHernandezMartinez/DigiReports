@@ -20,12 +20,12 @@ public class VentasController {
     private VentasService ventasService;
 
     @GET
-    @Path("/{inicio}/{fin}")
+    @Path("/articulos/{inicio}/{fin}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<?> obtenerVentasPorFechas(@Param() LocalDate inicio, @Param() LocalDate fin){
         try {
             Log.info("Buscando ventas en fecha inicio: " + inicio + ", fecha fin: " + fin);
-            return ventasService.obtenerVentasPorFechas(inicio, fin);
+            return ventasService.obtenerVentasArticulosPorFechas(inicio, fin);
         } catch (Exception e) {
             var error = new ArrayList<>();
             error.add(e.getMessage());

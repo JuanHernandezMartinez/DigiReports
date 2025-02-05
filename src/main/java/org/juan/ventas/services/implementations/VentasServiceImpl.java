@@ -43,7 +43,7 @@ public class VentasServiceImpl implements VentasService {
     }
 
     @Override
-    public List<Articulo> obtenerVentasPorFechas(LocalDate inicio, LocalDate fin) throws Exception {
+    public List<Articulo> obtenerVentasArticulosPorFechas(LocalDate inicio, LocalDate fin) throws Exception {
         try {
             // Buscar las ventas segun las fechas
             List<Integer> ventas = ventasRepository.findDoctosVesByDates(inicio, fin);
@@ -96,9 +96,18 @@ public class VentasServiceImpl implements VentasService {
 
             return listaFinal;
         } catch (Exception e) {
-            Log.error("Error: " + e.getMessage());
+            Log.error("Error: " + e);
             throw new Exception("Error obteniendo ventas entre " + inicio + " y " + fin, e);
         }
     }
+
+    @Override
+    public List<?> obtenerVentasFormasPagoPorFechas(LocalDate fechaInicio, LocalDate fechaFin) throws Exception {
+        
+
+        return new ArrayList<>();
+    }
+
+    
 
 }

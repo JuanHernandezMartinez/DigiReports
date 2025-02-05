@@ -1,11 +1,6 @@
 package org.juan.ventas.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.juan.ventas.models.Articulo;
-
 import java.math.BigDecimal;
 
 public class VentaDto  {

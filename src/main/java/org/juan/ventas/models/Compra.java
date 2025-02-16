@@ -4,6 +4,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
 @Entity
@@ -20,12 +24,17 @@ public class Compra {
     @Column(name = "DESCRIPCION")
     private String descripcion;
 
-    public Compra() {}
+    @Column(name = "TIPO_POLIZA_ID")
+    private Integer polizaId;
 
-    public Compra(Integer id, LocalDate fecha, String descripcion) {
+    public Compra() {
+    }
+
+    public Compra(Integer id, LocalDate fecha, String descripcion, Integer polizaId) {
         this.id = id;
         this.fecha = fecha;
         this.descripcion = descripcion;
+        this.polizaId = polizaId;
     }
 
     public Integer getId() {
@@ -50,5 +59,13 @@ public class Compra {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Integer getPolizaId() {
+        return polizaId;
+    }
+
+    public void setPolizaId(Integer polizaId) {
+        this.polizaId = polizaId;
     }
 }

@@ -16,11 +16,11 @@ public class CuentaCompra {
     private Integer id;
 
     @Column(name = "CUENTA_PT")
-    private Integer formaPago;
+    private String formaPago;
 
     public CuentaCompra() {}
 
-    public CuentaCompra(Integer id, Integer formaPago) {
+    public CuentaCompra(Integer id, String formaPago) {
         this.id = id;
         this.formaPago = formaPago;
     }
@@ -33,11 +33,11 @@ public class CuentaCompra {
         this.id = id;
     }
 
-    public Integer getFormaPago() {
+    public String getFormaPago() {
         return formaPago;
     }
 
-    public void setFormaPago(Integer formaPago) {
+    public void setFormaPago(String formaPago) {
         this.formaPago = formaPago;
     }
 
@@ -45,7 +45,7 @@ public class CuentaCompra {
     public String toString() {
         return "CuentaCompra{" +
                 "id=" + id +
-                ", formaPago=" + formaPago +
+                ", formaPago='" + formaPago + '\'' +
                 '}';
     }
 

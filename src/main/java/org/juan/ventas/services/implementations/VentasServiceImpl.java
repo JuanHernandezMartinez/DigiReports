@@ -32,17 +32,6 @@ public class VentasServiceImpl implements VentasService {
     private ImpuestosDetallesRepository impuestosRepository;
 
     @Override
-    public List<?> getVentas() throws Exception {
-        System.out.println("buscando doctos ve");
-        try {
-            return ventasRepository.finDoctosVentas();
-        } catch (Exception e) {
-            System.out.println("Error al buscar doctos: " + e.getMessage());
-            throw new Exception("Ha ocurrido un error al buscar los documentos venta");
-        }
-    }
-
-    @Override
     public List<Articulo> obtenerVentasArticulosPorFechas(LocalDate inicio, LocalDate fin) throws Exception {
         try {
             // Buscar las ventas segun las fechas
@@ -100,14 +89,4 @@ public class VentasServiceImpl implements VentasService {
             throw new Exception("Error obteniendo ventas entre " + inicio + " y " + fin, e);
         }
     }
-
-    @Override
-    public List<?> obtenerVentasFormasPagoPorFechas(LocalDate fechaInicio, LocalDate fechaFin) throws Exception {
-        
-
-        return new ArrayList<>();
-    }
-
-    
-
 }

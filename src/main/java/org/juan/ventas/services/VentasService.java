@@ -10,11 +10,5 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public interface VentasService {
 
-    List<?> getVentas() throws Exception;
-
     List<Articulo> obtenerVentasArticulosPorFechas(LocalDate fechaInicio, LocalDate fechaFin) throws Exception;
-
-    List<?> obtenerVentasFormasPagoPorFechas(LocalDate fechaInicio, LocalDate fechaFin) throws Exception;
-
-
 }

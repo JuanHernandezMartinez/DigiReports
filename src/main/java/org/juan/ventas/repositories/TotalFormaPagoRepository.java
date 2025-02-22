@@ -20,11 +20,11 @@ public class TotalFormaPagoRepository {
         String sql =
                 "SELECT\n" +
                         "\tCASE\n" +
-                        "\t\tWHEN cc.CUENTA_PT = '102.6' THEN 'EFECTIVO'\n" +
-                        "\t\tWHEN cc.CUENTA_PT LIKE '103%' THEN 'CREDITO'\n" +
-                        "\t\tWHEN cc.CUENTA_PT = '104.281' THEN 'FALTANTES'\n" +
-                        "\t\tWHEN cc.CUENTA_PT LIKE '104%' THEN 'TARJETA'\n" +
-                        "\t\tELSE cc.CUENTA_PT\n" +
+                        "\t\tWHEN cc.CUENTA_ID = 8110 THEN 'EFECTIVO'\n" +
+                        "\t\tWHEN cc.CUENTA_ID = 23648 THEN 'FALTANTES'\n" +
+                        "\t\tWHEN cc.CUENTA_ID = 23646 THEN 'TARJETA'\n" +
+                        "\t\tWHEN cc.CUENTA_ID = 23647 THEN 'TARJETA'\n" +
+                        "\tWHEN cc.CUENTA_PADRE_ID = 7611 THEN 'CREDITO'\n" +
                         "\tEND AS formaPago,\n" +
                         "\tSUM(dcd.IMPORTE_MN) AS total\n" +
                         "FROM\n" +
@@ -41,10 +41,17 @@ public class TotalFormaPagoRepository {
                         "\t\tdc.FECHA BETWEEN :inicio AND :fin\n" +
                         "\t\tAND dc.DESCRIPCION LIKE 'VENTA%')\n" +
                         "\tAND dcd.TIPO_ASIENTO = 'C'\n" +
-                        "\tAND cc.CUENTA_PT != '104.240'\n" +
-                        "\tAND cc.CUENTA_PT LIKE '10%'\n" +
+                        "\tAND (cc.CUENTA_ID IN (8110, 23648, 23646, 23647) \n" +
+                        "\tOR cc.CUENTA_PADRE_ID = 7611) \n" +
                         "GROUP BY\n" +
-                        "\tformaPago";
+                        "\tCASE\n" +
+                        "\tWHEN cc.CUENTA_ID = 8110 THEN 'EFECTIVO'\n" +
+                        "\tWHEN cc.CUENTA_ID = 23648 THEN 'FALTANTES'\n" +
+                        "\tWHEN cc.CUENTA_ID = 23646 THEN 'TARJETA'\n" +
+                        "\tWHEN cc.CUENTA_ID = 23647 THEN 'TARJETA'\n" +
+                        "\tWHEN cc.CUENTA_PADRE_ID = 7611 THEN 'CREDITO'\n" +
+
+                        "\tEND\n";
 
 
 
@@ -59,10 +66,8 @@ public class TotalFormaPagoRepository {
             total.setForma((String) r[0]);
             total.setTotal((BigDecimal) r[1]);
             totales.add(total);
-
         }
 
         return totales;
     }
-
 }

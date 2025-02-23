@@ -9,9 +9,13 @@ import org.juan.bancos.models.Saldo;
 import org.juan.bancos.services.BancoService;
 import org.juan.bancos.services.MovimientoService;
 import org.juan.bancos.services.SaldoService;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class BancoServiceImpl implements BancoService {
@@ -46,34 +50,26 @@ public class BancoServiceImpl implements BancoService {
 
     private List<DetalleBanco> crearDetallesBancos(List<Movimiento> movimientos, List<Saldo> saldosIniciales, List<Saldo> saldosFinales){
 
+        Map<Integer, BigDecimal> saldoInicialMap = saldosIniciales.stream()
+                .collect(Collectors.toMap(s -> s.cuentaBancoId, s -> s.saldo));
+
+        Map<Integer, BigDecimal> saldoFinalMap = saldosFinales.stream()
+                .collect(Collectors.toMap(s -> s.cuentaBancoId, s -> s.saldo));
+
         List<DetalleBanco> detalles = new ArrayList<>();
 
-        mvoimientos:
         for (Movimiento movimiento : movimientos) {
             DetalleBanco detalle = new DetalleBanco();
-            saldosIniciales:
-            for (Saldo saldo : saldosIniciales) {
-                if (movimiento.cuentaBancoId.equals(saldo.cuentaBancoId)) {
-                    detalle.cuentaBancoId = movimiento.cuentaBancoId;
-                    detalle.banco = movimiento.banco;
-                    detalle.depositors = movimiento.depositos;
-                    detalle.retiros = movimiento.retiros;
-                    detalle.saldoInicial = saldo.saldo;
-                }
-            }
-            saldosFinales:
-            for (Saldo saldo : saldosFinales) {
-                if (movimiento.cuentaBancoId.equals(saldo.cuentaBancoId)) {
-                    detalle.cuentaBancoId = movimiento.cuentaBancoId;
-                    detalle.banco = movimiento.banco;
-                    detalle.depositors = movimiento.depositos;
-                    detalle.retiros = movimiento.retiros;
-                    detalle.saldoFinal = saldo.saldo;
-                    detalles.add(detalle);
-                }
-            }
+            detalle.cuentaBancoId = movimiento.cuentaBancoId;
+            detalle.banco = movimiento.banco;
+            detalle.depositors = movimiento.depositos;
+            detalle.retiros = movimiento.retiros;
+            detalle.saldoInicial = saldoInicialMap.getOrDefault(movimiento.cuentaBancoId, BigDecimal.ZERO);
+            detalle.saldoFinal = saldoFinalMap.getOrDefault(movimiento.cuentaBancoId, BigDecimal.ZERO);
 
+            detalles.add(detalle);
         }
+
         return detalles;
     }
 }

@@ -6,7 +6,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.jboss.logging.annotations.Param;
-import org.juan.bancos.models.DetalleBanco;
+import org.juan.bancos.dtos.DetalleBanco;
 import org.juan.bancos.services.BancoService;
 import java.time.LocalDate;
 import java.util.List;

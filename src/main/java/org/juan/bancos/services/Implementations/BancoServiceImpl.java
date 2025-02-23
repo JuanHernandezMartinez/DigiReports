@@ -3,7 +3,7 @@ package org.juan.bancos.services.Implementations;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.juan.bancos.models.DetalleBanco;
+import org.juan.bancos.dtos.DetalleBanco;
 import org.juan.bancos.models.Movimiento;
 import org.juan.bancos.models.Saldo;
 import org.juan.bancos.services.BancoService;

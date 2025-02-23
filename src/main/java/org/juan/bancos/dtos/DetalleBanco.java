@@ -1,4 +1,4 @@
-package org.juan.bancos.models;
+package org.juan.bancos.dtos;
 
 import java.math.BigDecimal;
 

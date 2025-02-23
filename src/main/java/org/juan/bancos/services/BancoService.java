@@ -1,7 +1,6 @@
 package org.juan.bancos.services;
 
-import org.juan.bancos.models.DetalleBanco;
-import org.juan.bancos.models.Saldo;
+import org.juan.bancos.dtos.DetalleBanco;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -12,7 +12,7 @@ public class SaldoRepository {
     @Inject
     private EntityManager entityManager;
 
-    public Saldo buscarMovimientosFechas(Integer cuentaId, LocalDate fecha) {
+    public Saldo buscarSaldosFechas(Integer cuentaId, LocalDate fecha) {
 
         String sql = "select CUENTA_BAN_ID, SALDO from CALC_SALDO_CTABAN(:cuentaId, :fecha, 'N');";
 
@@ -22,7 +22,7 @@ public class SaldoRepository {
         Object[] restult = ( Object[]) query.getSingleResult();
         Saldo saldo = new Saldo();
         saldo.cuentaBancoId = (Integer) restult[0];
-        saldo.saldoInicial = (BigDecimal) restult[1];
+        saldo.saldo = (BigDecimal) restult[1];
         return saldo;
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public class TotalFormaPagoRepository {
 
     @Inject
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public List<TotalFormaPago> findTotalesByFechas(LocalDate inicio, LocalDate fin){
         String sql =

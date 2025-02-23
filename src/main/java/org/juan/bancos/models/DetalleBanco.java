@@ -14,5 +14,5 @@ public class DetalleBanco {
 
     public BigDecimal retiros;
 
-    public BigDecimal SaldoFinal;
+    public BigDecimal saldoFinal;
 }

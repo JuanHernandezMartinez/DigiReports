@@ -1,5 +1,6 @@
 package org.juan.bancos.repositories;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -7,6 +8,7 @@ import org.juan.bancos.models.Saldo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@ApplicationScoped
 public class SaldoRepository {
 
     @Inject

@@ -35,7 +35,8 @@ public class MovimientoRepository {
                 "\tdb.CUENTA_BAN_ID = cb.CUENTA_BAN_ID\n" +
                 "GROUP BY\n" +
                 "\tcb.CUENTA_BAN_ID," +
-                "\tcb.NOMBRE;";
+                "\tcb.NOMBRE" +
+                "\tORDER BY cb.CUENTA_BAN_ID ASC";
 
         Query query = entityManager.createNativeQuery(sql);
         query.setParameter("start", start);

@@ -4,10 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
-import jakarta.transaction.Transactional;
-
-import javax.lang.model.element.Name;
 import java.math.BigDecimal;
 import java.util.Objects;
 

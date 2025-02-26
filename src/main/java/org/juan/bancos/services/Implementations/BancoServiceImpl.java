@@ -3,6 +3,8 @@ package org.juan.bancos.services.Implementations;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.client.ResponseProcessingException;
+import jakarta.ws.rs.core.Response;
 import org.juan.bancos.dtos.DetalleBanco;
 import org.juan.bancos.models.Movimiento;
 import org.juan.bancos.models.Saldo;
@@ -27,9 +29,12 @@ public class BancoServiceImpl implements BancoService {
     private MovimientoService movimientoService;
 
     @Override
-    public List<DetalleBanco> obtenerDetallesPorFechas(LocalDate start, LocalDate end) {
+    public List<DetalleBanco> obtenerDetallesPorFechas(LocalDate start, LocalDate end) throws Exception {
 
         List<Movimiento> movimientos = movimientoService.buscarMovimientosPorFechas(start,end);
+        if(movimientos.isEmpty()){
+            throw new Exception("No hay movimientos");
+        }
         List<Integer> cuentasBancoIds = movimientos.stream().map(m->m.cuentaBancoId).toList();
 
         Log.info("Movimientos: " + movimientos.toString());

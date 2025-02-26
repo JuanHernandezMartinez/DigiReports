@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface BancoService {
 
-
-    List<DetalleBanco> obtenerDetallesPorFechas(LocalDate start, LocalDate end);
+    List<DetalleBanco> obtenerDetallesPorFechas(LocalDate start, LocalDate end) throws Exception;
 }

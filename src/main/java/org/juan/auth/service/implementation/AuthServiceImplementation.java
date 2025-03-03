@@ -1,15 +1,14 @@
 package org.juan.auth.service.implementation;
 
 import io.smallrye.jwt.build.Jwt;
-import jakarta.inject.Singleton;
+import jakarta.enterprise.context.RequestScoped;
 import org.eclipse.microprofile.jwt.Claims;
 import org.juan.auth.dtos.LoginRequest;
 import org.juan.auth.service.AuthService;
-
 import java.util.Arrays;
 import java.util.HashSet;
 
-@Singleton
+@RequestScoped
 public class AuthServiceImplementation implements AuthService {
 
     @Override

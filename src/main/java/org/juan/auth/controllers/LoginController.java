@@ -15,7 +15,6 @@ public class LoginController {
     private AuthService service;
 
     @POST
-    @PermitAll
     public Response loginHandler(LoginRequest loginRequest){
         try {
             return Response.ok(service.login(loginRequest)).build();

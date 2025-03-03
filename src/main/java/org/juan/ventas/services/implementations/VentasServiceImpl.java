@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import io.quarkus.logging.Log;
+import jakarta.enterprise.context.RequestScoped;
 import org.juan.ventas.models.Articulo;
 import org.juan.ventas.models.DoctosVentaDetalles;
 import org.juan.ventas.models.Impuesto;
@@ -16,23 +17,23 @@ import org.juan.ventas.services.VentasService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-@ApplicationScoped
+@RequestScoped
 public class VentasServiceImpl implements VentasService {
 
     @Inject
-    private DoctosVentasRepository ventasRepository;
+    DoctosVentasRepository ventasRepository;
 
     @Inject
-    private DoctosVentaDetallesRepository detallesRepository;
+    DoctosVentaDetallesRepository detallesRepository;
 
     @Inject
-    private ArticulosRepository articulosRepository;
+    ArticulosRepository articulosRepository;
 
     @Inject
-    private ImpuestosDetallesRepository impuestosRepository;
+    ImpuestosDetallesRepository impuestosRepository;
 
     @Override
-    public List<Articulo> obtenerVentasArticulosPorFechas(LocalDate inicio, LocalDate fin) throws Exception {
+    public List<Articulo> obtenerVentasArticulosPorFechas(String dbName, LocalDate inicio, LocalDate fin) throws Exception {
         try {
             // Buscar las ventas segun las fechas
             List<Integer> ventas = ventasRepository.findDoctosVesByDates(inicio, fin);
@@ -45,9 +46,9 @@ public class VentasServiceImpl implements VentasService {
             List<Impuesto> impuestosDetalles = impuestosRepository.findImpuestosByDetallesIds(detallesIds);
 
             //Articulos que se devolveran
-            Articulo diesel = articulosRepository.findArticuloByName("DIESEL");
-            Articulo magna = articulosRepository.findArticuloByName("MAGNA");
-            Articulo pemex = articulosRepository.findArticuloByName("PEMEX PREMIUM");
+            Articulo diesel = articulosRepository.findArticuloByName(dbName,"DIESEL");
+            Articulo magna = articulosRepository.findArticuloByName(dbName,"MAGNA");
+            Articulo pemex = articulosRepository.findArticuloByName(dbName,"PEMEX PREMIUM");
             Articulo aceites = new Articulo(0, "ACEITES Y LUBRICANTES", BigDecimal.ZERO, BigDecimal.ZERO);
 
             for (DoctosVentaDetalles detail : detallesVentas) {

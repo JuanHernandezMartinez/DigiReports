@@ -7,8 +7,9 @@ import org.juan.ventas.models.Articulo;
 
 import jakarta.enterprise.context.ApplicationScoped;
 
-@ApplicationScoped
+
 public interface VentasService {
 
-    List<Articulo> obtenerVentasArticulosPorFechas(LocalDate fechaInicio, LocalDate fechaFin) throws Exception;
+    List<Articulo> obtenerVentasArticulosPorFechas(String dbName, LocalDate fechaInicio, LocalDate fechaFin) throws Exception;
+
 }

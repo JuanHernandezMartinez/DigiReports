@@ -30,7 +30,7 @@ public class TokenSecuredResource {
     @Path("permit-all")
     @PermitAll
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello(@Context SecurityContext ctx) {
+    public String unprotectedEndpoint(@Context SecurityContext ctx) {
         return getResponseString(ctx);
     }
 
@@ -38,7 +38,7 @@ public class TokenSecuredResource {
     @Path("roles-allowed")
     @RolesAllowed({ "User", "Admin" })
     @Produces(MediaType.TEXT_PLAIN)
-    public String helloRolesAllowed(@Context SecurityContext ctx) {
+    public String protectedEndpoint(@Context SecurityContext ctx) {
         return getResponseString(ctx) + ", birthdate: " + jwt.getClaim("birthdate").toString();
     }
 
@@ -46,7 +46,7 @@ public class TokenSecuredResource {
     @Path("roles-allowed-admin")
     @RolesAllowed("Admin")
     @Produces(MediaType.TEXT_PLAIN)
-    public String helloRolesAllowedAdmin(@Context SecurityContext ctx) {
+    public String protectedEndpointForAdmins(@Context SecurityContext ctx) {
         return getResponseString(ctx) + ", birthdate: " + birthdate;
     }
 

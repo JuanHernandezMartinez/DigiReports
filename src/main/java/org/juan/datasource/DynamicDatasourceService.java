@@ -7,7 +7,6 @@ import io.agroal.api.configuration.supplier.AgroalDataSourceConfigurationSupplie
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,25 +1,59 @@
 package org.juan.ventas.repositories;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
-import org.juan.ventas.models.DoctosVenta;
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.agroal.api.AgroalDataSource;
+import io.quarkus.logging.Log;
+import jakarta.inject.Inject;
+import org.juan.datasource.DynamicDatasourceService;
 import jakarta.enterprise.context.ApplicationScoped;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
-public class DoctosVentasRepository implements PanacheRepository<DoctosVenta>  {
+public class DoctosVentasRepository {
 
-    public List<DoctosVenta> finDoctosVentas(){
-        return listAll();
+    private static final Logger log = LoggerFactory.getLogger(DoctosVentasRepository.class);
+    @Inject
+    DynamicDatasourceService dataSourceService;
+
+    public List<Integer> findDoctosVesByDates(String dbName, LocalDate inicio, LocalDate fin){
+
+        AgroalDataSource dataSource = dataSourceService.getDataSource(dbName);
+        var sql = "SELECT d.DOCTO_VE_ID FROM DOCTOS_VE d WHERE d.FECHA BETWEEN ? AND ?";
+
+
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, inicio.toString());
+            stmt.setString(2,fin.toString());
+
+            try(ResultSet rs = stmt.executeQuery()){
+                List<Integer> articulos = new ArrayList<>();
+                while (rs.next()){
+                    articulos.add(rs.getInt("DOCTO_VE_ID"));
+                }
+                return articulos;
+            }
+
+        } catch (Exception e) {
+            Log.info(e);
+            throw new RuntimeException(e);
+        }
     }
 
-    public List<Integer> findDoctosVesByDates(LocalDate inicio, LocalDate fin){
-        return getEntityManager()
-                .createQuery("SELECT d.doctoVeId FROM DoctosVenta d WHERE d.fecha BETWEEN :inicio AND :fin", Integer.class)
-                .setParameter("inicio", inicio)
-                .setParameter("fin", fin)
-                .getResultList();
-    }
+
+
+
+
+
+
+
+
 
     //listo
     //consulta para seleccionar DOCTOS_VE por fecha

@@ -14,7 +14,6 @@ import org.juan.ventas.repositories.DoctosVentaDetallesRepository;
 import org.juan.ventas.repositories.DoctosVentasRepository;
 import org.juan.ventas.repositories.ImpuestosDetallesRepository;
 import org.juan.ventas.services.VentasService;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 @RequestScoped
@@ -36,10 +35,10 @@ public class VentasServiceImpl implements VentasService {
     public List<Articulo> obtenerVentasArticulosPorFechas(String dbName, LocalDate inicio, LocalDate fin) throws Exception {
         try {
             // Buscar las ventas segun las fechas
-            List<Integer> ventas = ventasRepository.findDoctosVesByDates(inicio, fin);
+            List<Integer> ventas = ventasRepository.findDoctosVesByDates(dbName, inicio, fin);
 
             // Buscar los detalles de las ventas
-            List<DoctosVentaDetalles> detallesVentas = detallesRepository.findDetallesByVentas(ventas);
+            List<DoctosVentaDetalles> detallesVentas = detallesRepository.findDetallesByVentas(dbName, ventas);
             List<Integer> detallesIds = detallesVentas.stream().map(d -> d.doctoVeDetId).toList();
 
             // Buscar los impuestos por detalle

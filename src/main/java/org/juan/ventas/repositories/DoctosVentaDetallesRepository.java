@@ -1,20 +1,14 @@
 package org.juan.ventas.repositories;
 
 import io.agroal.api.AgroalDataSource;
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
-
 import jakarta.inject.Inject;
 import org.juan.datasource.DynamicDatasourceService;
-import org.juan.ventas.dtos.ArticuloTotal;
 import org.juan.ventas.models.DoctosVentaDetalles;
-
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,20 +36,19 @@ public class DoctosVentaDetallesRepository {
                 stmt.setInt(i + 1, doctosVeIds.get(i));
             }
             try (ResultSet rs = stmt.executeQuery()) {
-                Log.info(rs.toString());
-                while (rs.next()) {
-                    DoctosVentaDetalles detalle = new DoctosVentaDetalles();
-                    detalle.doctoVeDetId = rs.getInt("DOCTO_VE_DET_ID");
-                    detalle.doctoVeId = rs.getInt("DOCTO_VE_ID");
-                    detalle.articuloId = rs.getInt("ARTICULO_ID");
-                    detalle.unidades = rs.getBigDecimal("UNIDADES");
-                    detalle.precioTotalNeto = rs.getBigDecimal("PRECIO_TOTAL_NETO");
-                    detalles.add(detalle);
+                if(rs.next()){
+                    while (rs.next()) {
+                        DoctosVentaDetalles detalle = new DoctosVentaDetalles();
+                        detalle.doctoVeDetId = rs.getInt("DOCTO_VE_DET_ID");
+                        detalle.doctoVeId = rs.getInt("DOCTO_VE_ID");
+                        detalle.articuloId = rs.getInt("ARTICULO_ID");
+                        detalle.unidades = rs.getBigDecimal("UNIDADES");
+                        detalle.precioTotalNeto = rs.getBigDecimal("PRECIO_TOTAL_NETO");
+                        detalles.add(detalle);
+                    }
                 }
-                conn.close();
                 return detalles;
             }
-
         } catch (Exception e) {
             Log.info(e);
             throw new RuntimeException(e);

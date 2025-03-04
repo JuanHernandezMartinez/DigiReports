@@ -26,7 +26,6 @@ public class DoctosVentasRepository {
         AgroalDataSource dataSource = dataSourceService.getDataSource(dbName);
         var sql = "SELECT d.DOCTO_VE_ID FROM DOCTOS_VE d WHERE d.FECHA BETWEEN ? AND ?";
 
-
         try (Connection conn = dataSource.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, inicio.toString());
@@ -34,12 +33,13 @@ public class DoctosVentasRepository {
 
             try(ResultSet rs = stmt.executeQuery()){
                 List<Integer> articulos = new ArrayList<>();
-                while (rs.next()){
-                    articulos.add(rs.getInt("DOCTO_VE_ID"));
+                if(rs.next()){
+                    while (rs.next()){
+                        articulos.add(rs.getInt("DOCTO_VE_ID"));
+                    }
                 }
                 return articulos;
             }
-
         } catch (Exception e) {
             Log.info(e);
             throw new RuntimeException(e);

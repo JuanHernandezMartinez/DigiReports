@@ -33,16 +33,19 @@ public class ArticulosRepository {
             stmt.setString(1, name);
 
             try (ResultSet rs = stmt.executeQuery()) {
-                Articulo articulo = new Articulo();
-                while (rs.next()) {
-                    articulo.setId(rs.getInt("ARTICULO_ID"));
-                    articulo.setNombre(rs.getString("NOMBRE"));
+                if(rs.next()){
+                    Articulo articulo = new Articulo();
+                    while (rs.next()) {
+                        articulo.setId(rs.getInt("ARTICULO_ID"));
+                        articulo.setNombre(rs.getString("NOMBRE"));
+                    }
+                    return articulo;
                 }
-                return articulo;
+                throw new Exception("No se encontro el articulo: " + name);
             }
         } catch (Exception e) {
             Log.info(e);
-            throw new RuntimeException("Error en la consulta");
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

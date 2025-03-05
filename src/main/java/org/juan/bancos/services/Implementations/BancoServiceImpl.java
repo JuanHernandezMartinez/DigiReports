@@ -1,17 +1,13 @@
 package org.juan.bancos.services.Implementations;
 
-import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.client.ResponseProcessingException;
-import jakarta.ws.rs.core.Response;
 import org.juan.bancos.dtos.DetalleBanco;
 import org.juan.bancos.models.Movimiento;
 import org.juan.bancos.models.Saldo;
 import org.juan.bancos.services.BancoService;
 import org.juan.bancos.services.MovimientoService;
 import org.juan.bancos.services.SaldoService;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,31 +19,30 @@ import java.util.stream.Collectors;
 public class BancoServiceImpl implements BancoService {
 
     @Inject
-     private SaldoService saldoService;
+    SaldoService saldoService;
 
     @Inject
-    private MovimientoService movimientoService;
+    MovimientoService movimientoService;
 
     @Override
-    public List<DetalleBanco> obtenerDetallesPorFechas(LocalDate start, LocalDate end) throws Exception {
+    public List<DetalleBanco> obtenerDetallesPorFechas(String dbName, LocalDate start, LocalDate end) throws Exception {
 
-        List<Movimiento> movimientos = movimientoService.buscarMovimientosPorFechas(start,end);
+        List<Movimiento> movimientos = movimientoService.buscarMovimientosPorFechas(dbName, start,end);
         if(movimientos.isEmpty()){
             throw new Exception("No hay movimientos");
         }
         List<Integer> cuentasBancoIds = movimientos.stream().map(m->m.cuentaBancoId).toList();
 
-        Log.info("Movimientos: " + movimientos.toString());
         LocalDate diaAnterior = start.minusDays(1);
-        List<Saldo> saldosIniciales = saldosPorBancos(cuentasBancoIds, diaAnterior);
-        List<Saldo> saldosFinales = saldosPorBancos(cuentasBancoIds, end);
+        List<Saldo> saldosIniciales = saldosPorBancos(dbName, cuentasBancoIds, diaAnterior);
+        List<Saldo> saldosFinales = saldosPorBancos(dbName, cuentasBancoIds, end);
         return crearDetallesBancos(movimientos, saldosIniciales, saldosFinales);
     }
 
-    private List<Saldo> saldosPorBancos(List<Integer> cuentasBancoIds, LocalDate fecha){
+    private List<Saldo> saldosPorBancos(String dbName, List<Integer> cuentasBancoIds, LocalDate fecha){
         List<Saldo> saldos = new ArrayList<>();
         for (Integer cuentaId : cuentasBancoIds){
-            saldos.add(saldoService.buscarSaldoCuentaBancoAndFecha(cuentaId, fecha));
+            saldos.add(saldoService.buscarSaldoCuentaBancoAndFecha(dbName, cuentaId, fecha));
         }
 
         return saldos;
@@ -71,7 +66,6 @@ public class BancoServiceImpl implements BancoService {
             detalle.retiros = movimiento.retiros;
             detalle.saldoInicial = saldoInicialMap.getOrDefault(movimiento.cuentaBancoId, BigDecimal.ZERO);
             detalle.saldoFinal = saldoFinalMap.getOrDefault(movimiento.cuentaBancoId, BigDecimal.ZERO);
-
             detalles.add(detalle);
         }
 

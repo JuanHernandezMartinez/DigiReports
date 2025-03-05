@@ -1,30 +1,46 @@
 package org.juan.bancos.repositories;
 
+import io.agroal.api.AgroalDataSource;
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import org.juan.bancos.models.Saldo;
-import java.math.BigDecimal;
+import org.juan.datasource.DynamicDatasourceService;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 
 @ApplicationScoped
 public class SaldoRepository {
 
     @Inject
-    private EntityManager entityManager;
+    DynamicDatasourceService datasourceService;
 
-    public Saldo buscarSaldosFechas(Integer cuentaId, LocalDate fecha) {
+    public Saldo buscarSaldosFechas(String dbName, Integer cuentaId, LocalDate fecha) {
 
-        String sql = "select CUENTA_BAN_ID, SALDO from CALC_SALDO_CTABAN(:cuentaId, :fecha, 'N');";
+        String sql = "select CUENTA_BAN_ID, SALDO from CALC_SALDO_CTABAN(?, ?, 'N');";
 
-        Query query = entityManager.createNativeQuery(sql);
-        query.setParameter("cuentaId", cuentaId);
-        query.setParameter("fecha", fecha);
-        Object[] restult = ( Object[]) query.getSingleResult();
-        Saldo saldo = new Saldo();
-        saldo.cuentaBancoId = (Integer) restult[0];
-        saldo.saldo = (BigDecimal) restult[1];
-        return saldo;
+        AgroalDataSource dataSource = datasourceService.getDataSource(dbName);
+
+        try(Connection conn = dataSource.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, cuentaId);
+            stmt.setDate(2, Date.valueOf(fecha));
+
+            try(ResultSet rs = stmt.executeQuery()){
+                if(rs.next()){
+                    Saldo saldo = new Saldo();
+                    saldo.cuentaBancoId = rs.getInt("CUENTA_BAN_ID");
+                    saldo.saldo = rs.getBigDecimal("SALDO");
+                    return saldo;
+                }
+                return null;
+            }
+        } catch (Exception e) {
+            Log.error("Error al buscar saldo por fechas", e);
+            throw new RuntimeException(e);
+        }
     }
 }

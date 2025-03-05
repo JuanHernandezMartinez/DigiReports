@@ -6,5 +6,5 @@ import java.time.LocalDate;
 
 public interface SaldoService {
 
-    Saldo buscarSaldoCuentaBancoAndFecha(Integer cuentaBancoId, LocalDate fecha);
+    Saldo buscarSaldoCuentaBancoAndFecha(String dbName, Integer cuentaBancoId, LocalDate fecha) throws RuntimeException;
 }

@@ -16,7 +16,7 @@ public class MovimientoServiceImpl implements MovimientoService {
     private MovimientoRepository repository;
 
     @Override
-    public List<Movimiento> buscarMovimientosPorFechas(LocalDate start, LocalDate end) {
-        return repository.buscarMovimientosFechas(start,end);
+    public List<Movimiento> buscarMovimientosPorFechas(String dbName, LocalDate start, LocalDate end) throws RuntimeException {
+        return repository.buscarMovimientosFechas(dbName, start,end);
     }
 }

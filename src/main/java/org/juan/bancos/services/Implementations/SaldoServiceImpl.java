@@ -12,10 +12,10 @@ import java.time.LocalDate;
 public class SaldoServiceImpl implements SaldoService {
 
     @Inject
-    private SaldoRepository repository;
+    SaldoRepository repository;
 
     @Override
-    public Saldo buscarSaldoCuentaBancoAndFecha(Integer cuentaBancoId, LocalDate fecha) {
-        return repository.buscarSaldosFechas(cuentaBancoId,fecha);
+    public Saldo buscarSaldoCuentaBancoAndFecha(String dbName, Integer cuentaBancoId, LocalDate fecha) {
+        return repository.buscarSaldosFechas(dbName, cuentaBancoId,fecha);
     }
 }

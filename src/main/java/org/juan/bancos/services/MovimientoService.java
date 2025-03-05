@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MovimientoService {
 
-    List<Movimiento> buscarMovimientosPorFechas(LocalDate start, LocalDate end);
+    List<Movimiento> buscarMovimientosPorFechas(String dbName, LocalDate start, LocalDate end) throws  RuntimeException;
 }

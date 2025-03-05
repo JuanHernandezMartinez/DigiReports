@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TotalFormaPagoService {
 
-    List<TotalFormaPago> TotalPorFormaDePagoYFechas(LocalDate inicio, LocalDate fin);
+    List<TotalFormaPago> totalPorFormaDePagoYFechas(String dbName, LocalDate startDate, LocalDate endDate) throws RuntimeException;
 }

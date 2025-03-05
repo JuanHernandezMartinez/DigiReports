@@ -1,22 +1,14 @@
 package org.juan.ventas.repositories;
 
 import io.agroal.api.AgroalDataSource;
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.logging.Log;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-
 import org.juan.datasource.DynamicDatasourceService;
 import org.juan.ventas.models.Articulo;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequestScoped
 public class ArticulosRepository {
@@ -33,14 +25,13 @@ public class ArticulosRepository {
             stmt.setString(1, name);
 
             try (ResultSet rs = stmt.executeQuery()) {
-                if(rs.next()){
-                    Articulo articulo = new Articulo();
-                    while (rs.next()) {
-                        articulo.setId(rs.getInt("ARTICULO_ID"));
-                        articulo.setNombre(rs.getString("NOMBRE"));
-                    }
-                    return articulo;
+                Articulo articulo = new Articulo();
+                while (rs.next()) {
+                    articulo.setId(rs.getInt("ARTICULO_ID"));
+                    articulo.setNombre(rs.getString("NOMBRE"));
                 }
+                return articulo;
+            } catch (Exception e) {
                 throw new Exception("No se encontro el articulo: " + name);
             }
         } catch (Exception e) {

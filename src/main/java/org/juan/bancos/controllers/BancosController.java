@@ -1,5 +1,6 @@
 package org.juan.bancos.controllers;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -11,6 +12,7 @@ import org.juan.bancos.services.BancoService;
 import java.time.LocalDate;
 
 @Path("/bancos")
+@RolesAllowed("Admin")
 public class BancosController {
 
     @Inject

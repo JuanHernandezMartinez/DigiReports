@@ -18,9 +18,8 @@ public class TotalFormaPagoServiceImpl implements TotalFormaPagoService  {
     private TotalFormaPagoRepository repository;
 
     @Override
-    public List<TotalFormaPago> TotalPorFormaDePagoYFechas(LocalDate inicio, LocalDate fin){
-        Log.info("Buscando totales por forma de pago, fechas: " + inicio + " y " + fin);
-        return repository.findTotalesByFechas(inicio,fin);
+    public List<TotalFormaPago> totalPorFormaDePagoYFechas(String dbName, LocalDate startDate, LocalDate endDate) throws RuntimeException{
+        return repository.findTotalesByFechas(dbName, startDate, endDate);
     }
 
 }

@@ -42,7 +42,7 @@ public class VentasServiceImpl implements VentasService {
             List<Integer> detallesIds = detallesVentas.stream().map(d -> d.doctoVeDetId).toList();
 
             // Buscar los impuestos por detalle
-            List<Impuesto> impuestosDetalles = impuestosRepository.findImpuestosByDetallesIds(detallesIds);
+            List<Impuesto> impuestosDetalles = impuestosRepository.findImpuestosByDetallesIds(dbName, detallesIds);
 
             //Articulos que se devolveran
             Articulo diesel = articulosRepository.findArticuloByName(dbName,"DIESEL");

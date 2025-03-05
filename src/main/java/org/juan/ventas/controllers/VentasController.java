@@ -1,25 +1,22 @@
 package org.juan.ventas.controllers;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
-import org.jboss.logging.annotations.Param;
-import org.juan.ventas.models.Articulo;
 import org.juan.ventas.services.VentasService;
-
 import io.quarkus.logging.Log;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
 
+@RequestScoped
 @Path("/ventas")
+@RolesAllowed("Admin")
 public class VentasController {
 
     @Inject
-    private VentasService service;
+    VentasService service;
 
     @GET
     @Path("/articulos/{dataBase}/{startDate}/{endDate}")

@@ -1,6 +1,5 @@
 package org.juan.auth.controllers;
 
-import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -12,7 +11,7 @@ import org.juan.auth.service.AuthService;
 public class LoginController {
 
     @Inject
-    private AuthService service;
+    AuthService service;
 
     @POST
     public Response loginHandler(LoginRequest loginRequest){

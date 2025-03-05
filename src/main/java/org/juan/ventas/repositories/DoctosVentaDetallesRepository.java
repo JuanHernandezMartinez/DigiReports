@@ -19,7 +19,6 @@ public class DoctosVentaDetallesRepository {
     @Inject
     DynamicDatasourceService datasourceService;
 
-
     public List<DoctosVentaDetalles> findDetallesByVentas(String dbName, List<Integer> doctosVeIds) {
         List<DoctosVentaDetalles> detalles = new ArrayList<>();
         if (doctosVeIds.size() == 0) {
@@ -36,7 +35,6 @@ public class DoctosVentaDetallesRepository {
                 stmt.setInt(i + 1, doctosVeIds.get(i));
             }
             try (ResultSet rs = stmt.executeQuery()) {
-                if(rs.next()){
                     while (rs.next()) {
                         DoctosVentaDetalles detalle = new DoctosVentaDetalles();
                         detalle.doctoVeDetId = rs.getInt("DOCTO_VE_DET_ID");
@@ -46,7 +44,6 @@ public class DoctosVentaDetallesRepository {
                         detalle.precioTotalNeto = rs.getBigDecimal("PRECIO_TOTAL_NETO");
                         detalles.add(detalle);
                     }
-                }
                 return detalles;
             }
         } catch (Exception e) {

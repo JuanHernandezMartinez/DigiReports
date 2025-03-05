@@ -1,22 +1,29 @@
 package org.juan.ventas.repositories;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import io.agroal.api.AgroalDataSource;
+import io.quarkus.logging.Log;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
+import org.juan.datasource.DynamicDatasourceService;
 import org.juan.ventas.dtos.TotalFormaPago;
-import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApplicationScoped
+@RequestScoped
 public class TotalFormaPagoRepository {
 
     @Inject
-    private EntityManager entityManager;
+    DynamicDatasourceService datasourceService;
 
-    public List<TotalFormaPago> findTotalesByFechas(LocalDate inicio, LocalDate fin){
+    public List<TotalFormaPago> findTotalesByFechas(String dbName, LocalDate startDate, LocalDate endDate) throws RuntimeException {
+
+        AgroalDataSource dataSource = datasourceService.getDataSource(dbName);
+
         String sql =
                 "SELECT\n" +
                         "\tCASE\n" +
@@ -25,8 +32,8 @@ public class TotalFormaPagoRepository {
                         "\t\tWHEN cc.CUENTA_ID = 23646 THEN 'TARJETA'\n" +
                         "\t\tWHEN cc.CUENTA_ID = 23647 THEN 'TARJETA'\n" +
                         "\tWHEN cc.CUENTA_PADRE_ID = 7611 THEN 'CREDITO'\n" +
-                        "\tEND AS formaPago,\n" +
-                        "\tSUM(dcd.IMPORTE_MN) AS total\n" +
+                        "\tEND AS FORMAPAGO,\n" +
+                        "\tSUM(dcd.IMPORTE_MN) AS TOTAL\n" +
                         "FROM\n" +
                         "\tDOCTOS_CO_DET dcd\n" +
                         "JOIN CUENTAS_CO cc ON\n" +
@@ -38,7 +45,7 @@ public class TotalFormaPagoRepository {
                         "\tFROM\n" +
                         "\t\tDOCTOS_CO dc\n" +
                         "\tWHERE\n" +
-                        "\t\tdc.FECHA BETWEEN :inicio AND :fin\n" +
+                        "\t\tdc.FECHA BETWEEN ? AND ?\n" +
                         "\t\tAND dc.DESCRIPCION LIKE 'VENTA%')\n" +
                         "\tAND dcd.TIPO_ASIENTO = 'C'\n" +
                         "\tAND (cc.CUENTA_ID IN (8110, 23648, 23646, 23647) \n" +
@@ -53,21 +60,24 @@ public class TotalFormaPagoRepository {
 
                         "\tEND\n";
 
-
-
-        Query query = entityManager.createNativeQuery(sql);
-        query.setParameter("inicio", inicio);
-        query.setParameter("fin", fin);
-        List<Object[]> resultados = query.getResultList();
         List<TotalFormaPago> totales = new ArrayList<>();
+        try (Connection conn = dataSource.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setDate(1, Date.valueOf(startDate));
+            stmt.setDate(2, Date.valueOf(endDate));
 
-        for(Object[] r:resultados){
-            TotalFormaPago total = new TotalFormaPago();
-            total.setForma((String) r[0]);
-            total.setTotal((BigDecimal) r[1]);
-            totales.add(total);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    TotalFormaPago total = new TotalFormaPago();
+                    total.setForma(rs.getString("FORMAPAGO"));
+                    total.setTotal(rs.getBigDecimal("TOTAL"));
+                    totales.add(total);
+                }
+            }
+            return totales;
+        } catch (Exception e) {
+            Log.info(e);
+            throw new RuntimeException(e);
         }
-
-        return totales;
     }
 }

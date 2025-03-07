@@ -1,21 +1,16 @@
 package org.juan.ventas.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 import java.util.Objects;
 
-@Entity
-@Table(name = "CUENTAS_CO")
+//@Entity
+//@Table(name = "CUENTAS_CO")
 public class CuentaCompra {
 
-    @Id
-    @Column(name = "CUENTA_ID")
+//    @Id
+//    @Column(name = "CUENTA_ID")
     private Integer id;
 
-    @Column(name = "CUENTA_PT")
+//    @Column(name = "CUENTA_PT")
     private String formaPago;
 
     public CuentaCompra() {}

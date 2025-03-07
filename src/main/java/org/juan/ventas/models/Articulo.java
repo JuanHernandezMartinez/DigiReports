@@ -1,25 +1,23 @@
 package org.juan.ventas.models;
 
-import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity
-@Table(name = "ARTICULOS")
+//@Entity
+//@Table(name = "ARTICULOS")
 public class Articulo {
 
-    @Id
-    @Column(name = "ARTICULO_ID")
+//    @Id
+//    @Column(name = "ARTICULO_ID")
     private Integer id;
 
-    @Column(name = "NOMBRE")
+//    @Column(name = "NOMBRE")
     private String nombre;
 
-    @Transient
+//    @Transient
     private BigDecimal unidades = BigDecimal.ZERO;
 
-    @Transient
+//    @Transient
     private BigDecimal total = BigDecimal.ZERO;
 
     public  Articulo(){}

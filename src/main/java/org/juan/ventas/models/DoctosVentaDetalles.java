@@ -1,30 +1,26 @@
 package org.juan.ventas.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@Entity
-@Table(name = "DOCTOS_VE_DET")
+//@Entity
+//@Table(name = "DOCTOS_VE_DET")
 public class DoctosVentaDetalles {
 
-    @Id
-    @Column(name = "DOCTO_VE_DET_ID")
+//    @Id
+//    @Column(name = "DOCTO_VE_DET_ID")
     public Integer doctoVeDetId;
 
-    @Column(name = "DOCTO_VE_ID")
+//    @Column(name = "DOCTO_VE_ID")
     public Integer doctoVeId;
 
-    @Column(name = "ARTICULO_ID")
+//    @Column(name = "ARTICULO_ID")
     public Integer articuloId;
 
-    @Column(name = "UNIDADES")
+//    @Column(name = "UNIDADES")
     public BigDecimal unidades;
 
-    @Column(name = "PRECIO_TOTAL_NETO")
+//    @Column(name = "PRECIO_TOTAL_NETO")
     public BigDecimal precioTotalNeto;
 
 //    @Column(name = "")

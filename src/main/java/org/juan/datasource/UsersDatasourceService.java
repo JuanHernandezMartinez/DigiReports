@@ -11,29 +11,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ApplicationScoped
-public class DynamicDatasourceService {
+public class UsersDatasourceService {
 
-    @ConfigProperty(name = "DB_URL")
+    @ConfigProperty(name = "CONFIG_DB_URL")
     String dbUrl;
 
-    @ConfigProperty(name = "DB_USER")
+    @ConfigProperty(name = "CONFIG_USER")
     String dbUser;
 
-    @ConfigProperty(name = "DB_PASSWORD")
+    @ConfigProperty(name = "CONFIG_PASSWORD")
     String dbPassword;
 
     private final Map<String, AgroalDataSource> dataSourceCache = new HashMap<>();
 
-//    @Inject
-//    AgroalDataSource defaultDataSource;
-
-    public AgroalDataSource getDataSource(String dbName) {
-        return dataSourceCache.computeIfAbsent(dbName, this::createNewDataSource);
+    public AgroalDataSource getDataSource(String user, String password) {
+        return createNewDataSource(user, password);
     }
 
-    private AgroalDataSource createNewDataSource(String dbName) {
+    private AgroalDataSource createNewDataSource(String user, String password) {
         try {
-            String newDbUrl =  dbUrl + dbName + ".FDB?user=" + dbUser + "&password=" + dbPassword;
+            String newDbUrl =  dbUrl + ".FDB?user=" + user + "&password=" + password;
             AgroalDataSourceConfiguration config = new AgroalDataSourceConfigurationSupplier()
                     .dataSourceImplementation(AgroalDataSourceConfiguration.DataSourceImplementation.AGROAL)
                     .connectionPoolConfiguration(cp -> cp
@@ -43,10 +40,9 @@ public class DynamicDatasourceService {
                             .maxSize(10)
                     )
                     .get();
-            Log.info("USANDO DB: " + dbName);
             return AgroalDataSource.from(config);
         } catch (Exception e) {
-            throw new RuntimeException("Error creando DataSource para " + dbName, e);
+            throw new RuntimeException("Error creando DataSource para ", e);
         }
     }
 

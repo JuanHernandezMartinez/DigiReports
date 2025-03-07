@@ -1,5 +1,6 @@
 package org.juan.auth.controllers;
 
+import io.quarkus.logging.Log;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -18,7 +19,8 @@ public class LoginController {
         try {
             return Response.ok(service.login(loginRequest)).build();
         } catch (Exception e) {
-            return Response.status(401).build();
+            Log.info(e.getMessage());
+            return Response.status(401).entity(e.getMessage()).build();
         }
     }
 

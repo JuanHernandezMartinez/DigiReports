@@ -19,8 +19,7 @@ public class LoginController {
         try {
             return Response.ok(service.login(loginRequest)).build();
         } catch (Exception e) {
-            Log.info(e.getMessage());
-            return Response.status(401).entity(e.getMessage()).build();
+            return Response.status(401).entity("Credenciales invalidas").build();
         }
     }
 

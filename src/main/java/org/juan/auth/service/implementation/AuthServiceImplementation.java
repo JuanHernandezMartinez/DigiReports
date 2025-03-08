@@ -22,19 +22,19 @@ public class AuthServiceImplementation implements AuthService {
 
     @Override
     public String login(LoginRequest loginRequest) throws Exception {
-        Log.info("Usuario: " + loginRequest.user);
-        AgroalDataSource dataSource = datasourceService.getDataSource(loginRequest.user, loginRequest.password);
+        Log.info("Usuario: " + loginRequest.user + " Esta iniciando sesion");
+        try {
+            AgroalDataSource dataSource = datasourceService.getDataSource(loginRequest.user, loginRequest.password);
 
-        if (loginRequest.user.equals("SYSDBA")){
-            throw new RuntimeException("Credenciales invalidas");
-        }
-        try{
-            try(Connection conn = dataSource.getConnection()){
-                Log.info("Login correcto");
-                return generateAccessToken();
+            if (loginRequest.user.equals("SYSDBA")) {
+                throw new RuntimeException("Credenciales invalidas");
             }
+            Connection conn = dataSource.getConnection();
+            Log.info("Login correcto");
+            return generateAccessToken();
+
         } catch (RuntimeException e) {
-            Log.info("Error al conectarse a la DB: " + e.getMessage());
+            Log.info("Error al iniciar sesion: " + e.getMessage());
             throw new RuntimeException("Credenciales invalidas");
         }
     }

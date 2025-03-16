@@ -8,10 +8,10 @@ public class SaldoCliente {
 
     public String nombre;
 
-    public BigDecimal pago;
+    public BigDecimal pago = BigDecimal.ZERO;
 
-    public BigDecimal cargo;
+    public BigDecimal cargo = BigDecimal.ZERO;
 
-    public BigDecimal saldo;
+    public BigDecimal saldo = BigDecimal.ZERO;
 
 }

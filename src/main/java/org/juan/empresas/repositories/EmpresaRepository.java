@@ -21,7 +21,7 @@ public class EmpresaRepository {
 
         AgroalDataSource dataSource = datasourceService.getDataSource();
         try(Connection conn = dataSource.getConnection()){
-            String sql = "SELECT e.* FROM EMPRESAS e";
+            String sql = "SELECT EMPRESA_ID, NOMBRE_CORTO FROM EMPRESAS";
             PreparedStatement stmt = conn.prepareStatement(sql);
             try(ResultSet rs = stmt.executeQuery()){
                 List<Empresa> empresas = new ArrayList<>();
@@ -30,6 +30,7 @@ public class EmpresaRepository {
                     empresa.id = rs.getInt("EMPRESA_ID");
                     empresa.nombre = rs.getString("NOMBRE_CORTO");
                     empresas.add(empresa);
+                    empresa = null;
                 }
                 return empresas;
             }

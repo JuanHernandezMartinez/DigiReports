@@ -1,0 +1,10 @@
+services:
+  authdatabase:
+    image: postgres
+    container_name: "authDB"
+    environment:
+      POSTGRES_USER: digitreports
+      POSTGRES_PASSWORD: masterkey
+      POSTGRES_DB: auth
+    ports:
+      - 5432:5432

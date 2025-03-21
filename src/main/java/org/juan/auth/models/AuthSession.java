@@ -15,7 +15,7 @@ public class AuthSession {
     @Column(name = "access_token", columnDefinition = "TEXT")
     public String accessToken;
 
-    @Column(unique = true)
+    @Column()
     public String username;
 
     @Column(name = "expires_at")

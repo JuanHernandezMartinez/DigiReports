@@ -14,7 +14,7 @@ public class EmpresasContorller {
     EmpresaService service;
 
     @GET
-    @RolesAllowed("Admin")
+    @Path("/")
     public Response consultarEmpresas() throws RuntimeException{
         return Response.ok(service.getBussines()).build();
     }

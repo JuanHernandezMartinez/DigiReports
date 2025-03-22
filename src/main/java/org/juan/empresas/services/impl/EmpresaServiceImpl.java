@@ -6,7 +6,6 @@ import jakarta.inject.Inject;
 import org.juan.empresas.models.Empresa;
 import org.juan.empresas.repositories.EmpresaRepository;
 import org.juan.empresas.services.EmpresaService;
-
 import java.util.List;
 
 @ApplicationScoped

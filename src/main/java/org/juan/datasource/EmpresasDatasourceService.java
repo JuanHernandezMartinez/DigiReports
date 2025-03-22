@@ -6,7 +6,6 @@ import io.agroal.api.configuration.supplier.AgroalConnectionFactoryConfiguration
 import io.agroal.api.configuration.supplier.AgroalDataSourceConfigurationSupplier;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import java.util.HashMap;
 import java.util.Map;
 

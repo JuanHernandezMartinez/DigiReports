@@ -1,6 +1,6 @@
 package org.juan.empresas.controllers;
 
-import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -12,7 +12,7 @@ import org.juan.empresas.services.EmpresaService;
 
 @ApplicationScoped
 @Path("/empresas")
-@PermitAll
+@RolesAllowed("Admin")
 public class EmpresaController {
 
     @Inject

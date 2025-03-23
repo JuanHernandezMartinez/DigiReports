@@ -11,6 +11,7 @@ import org.juan.auth.dtos.LoginRequest;
 import org.juan.auth.service.AuthService;
 import org.juan.datasource.UsersDatasourceService;
 import java.sql.Connection;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -44,7 +45,7 @@ public class AuthServiceImplementation implements AuthService {
                 .groups(new HashSet<>(Arrays.asList("User", "Admin")))
                 .preferredUserName(username)
                 .claim(Claims.birthdate.name(), "2003-08-04")
-                .expiresAt(900)
+                .expiresAt(Instant.now().plusSeconds(900).getEpochSecond())
                 .sign();
     }
 }

@@ -20,10 +20,10 @@ public class EmpresaController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response consultarEmpresas(){
-        try{
+    public Response consultarEmpresas() {
+        try {
             return Response.ok(service.getBussines()).build();
-        }catch (Exception e){
+        } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("Error al obtener empresas").build();
         }

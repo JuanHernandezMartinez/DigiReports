@@ -1,6 +1,5 @@
 package org.juan.empresas.services.impl;
 
-import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.juan.empresas.models.Empresa;
@@ -16,8 +15,6 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     @Override
     public List<Empresa> getBussines() throws RuntimeException {
-        var empresas = repository.getBussines();
-        Log.info("Empresas: " + empresas);
-        return empresas;
+        return repository.getBussines();
     }
 }

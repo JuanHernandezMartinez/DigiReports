@@ -22,13 +22,13 @@ public class ClienteRepository {
         String sql = "SELECT\n" +
                 "\tcc.CUENTA_ID,\n" +
                 "\tcc.NOMBRE,\n" +
-                "\tsum(dcd.IMPORTE_MN) AS PAGO\n" +
+                "\tCOALESCE(SUM(CASE WHEN dcd.TIPO_ASIENTO = 'A' THEN dcd.IMPORTE_MN END), 0) AS PAGO,\n" +
+                "\tCOALESCE(SUM(CASE WHEN dcd.TIPO_ASIENTO = 'C' THEN dcd.IMPORTE_MN END), 0) AS CARGO\n" +
                 "FROM\n" +
                 "\tDOCTOS_CO_DET dcd\n" +
                 "\tJOIN CUENTAS_CO cc ON dcd.CUENTA_ID = cc.CUENTA_ID \n" +
                 "WHERE\n" +
                 "\tdcd.\"FECHA\" BETWEEN ? AND ?\n" +
-                "\tAND dcd.TIPO_ASIENTO = 'A'\n" +
                 "\tAND cc.CUENTA_PADRE_ID = 7611\n" +
                 "\tGROUP BY cc.CUENTA_ID, cc.NOMBRE";
         try(Connection conn = dataSource.getConnection()){
@@ -43,7 +43,8 @@ public class ClienteRepository {
                     saldoCliente.clienteId = rs.getInt("CUENTA_ID");
                     saldoCliente.nombre = rs.getString("NOMBRE");
                     saldoCliente.pago = rs.getBigDecimal("PAGO");
-                    saldoClientes.add(saldoCliente);
+                    saldoCliente.cargo = rs.getBigDecimal("CARGO");
+                    if (saldoCliente.clienteId != 7615) saldoClientes.add(saldoCliente);
                 }
                 return saldoClientes;
             }

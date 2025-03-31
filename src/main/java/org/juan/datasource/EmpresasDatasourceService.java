@@ -6,8 +6,6 @@ import io.agroal.api.configuration.supplier.AgroalConnectionFactoryConfiguration
 import io.agroal.api.configuration.supplier.AgroalDataSourceConfigurationSupplier;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import java.util.HashMap;
-import java.util.Map;
 
 @ApplicationScoped
 public class EmpresasDatasourceService {
@@ -20,15 +18,13 @@ public class EmpresasDatasourceService {
     @ConfigProperty(name = "CONFIG_PASSWORD")
     String dbPassword;
 
-    private final Map<String, AgroalDataSource> dataSourceCache = new HashMap<>();
-
     public AgroalDataSource getDataSource() {
         return createNewDataSource(dbUser, dbPassword);
     }
 
     private AgroalDataSource createNewDataSource(String user, String password) {
         try {
-            String newDbUrl =  dbUrl + ".FDB?user=" + user + "&password=" + password;
+            String newDbUrl =  dbUrl + "?user=" + user + "&password=" + password;
             AgroalDataSourceConfiguration config = new AgroalDataSourceConfigurationSupplier()
                     .dataSourceImplementation(AgroalDataSourceConfiguration.DataSourceImplementation.AGROAL)
                     .connectionPoolConfiguration(cp -> cp

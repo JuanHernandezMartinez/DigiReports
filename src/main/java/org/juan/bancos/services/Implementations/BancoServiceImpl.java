@@ -36,6 +36,7 @@ public class BancoServiceImpl implements BancoService {
         LocalDate diaAnterior = start.minusDays(1);
         List<Saldo> saldosIniciales = saldosPorBancos(dbName, cuentasBancoIds, diaAnterior);
         List<Saldo> saldosFinales = saldosPorBancos(dbName, cuentasBancoIds, end);
+
         return crearDetallesBancos(movimientos, saldosIniciales, saldosFinales);
     }
 

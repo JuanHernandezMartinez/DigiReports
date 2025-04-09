@@ -12,6 +12,8 @@ public class SaldoCliente {
 
     public BigDecimal cargo = BigDecimal.ZERO;
 
-    public BigDecimal saldo = BigDecimal.ZERO;
+    public BigDecimal saldoInicial = BigDecimal.ZERO;
+
+    public BigDecimal saldoFinal = BigDecimal.ZERO;
 
 }
